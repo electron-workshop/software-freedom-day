@@ -1,19 +1,39 @@
 {
   "event": {
-    "logo": "https://software-freedom-day.netlify.app/assets/sfdlogo_622wide.png",
+    "logo": "/assets/images/sfdlogo_622wide.png",
     "title": "Software Freedom Day",
     "subtitle": "Join the Movement",
     "tagline": "Join the Movement • Celebrate Freedom • Shape the Future",
     "date": "Saturday 20th September 2025",
-    "time": "10:30am - 5:30pm",
+    "time": "12PM - 3pm",
     "timezone": "AEST",
     "admission": "Free Event",
     "audience": "Newcomers Welcome",
-    "registration_url": "https://venue.electronworkshop.com.au/r/softwarefreedomday",
+    "registration_url": "#register",
     "cta_text": "Register Now",
     "meta_description": "Celebrate freedom and innovation at Software Freedom Day 2025. Join developers, advocates, and newcomers for talks, discussions, and community events online.",
     "preview_image": "https://software-freedom-day.netlify.app/assets/sfd-2025-preview.png",
     "url": "https://software-freedom-day.netlify.app/"
+  },
+  "eventDetails": {
+    "title": "Details",
+    "cards": [
+      {
+        "title": "Date & Time",
+        "description": "Saturday, 20th September\n12PM to 3PM"
+      },
+      {
+        "title": "Location",
+        "description": "Melbourne PC User Group Office",
+        "linkText": "Suite 26/479 Warrigal Rd, Moorabbin VIC 3189",
+        "link": "https://maps.app.goo.gl/rEL9UqUh72RwAASg9"
+      },
+      {
+        "title": "Online",
+        "link": "https://electronworkshop.com.au/goto/venue",
+        "linkText": "Electron Workshop eVenue"
+      }
+    ]
   },
   "about": {
     "title": "Why Software Freedom Matters",
@@ -39,57 +59,21 @@
     "title": "Event Schedule",
     "events": [
       {
-        "time": "10:15am - 10:45am",
-        "title": "Online Session Opens",
-        "description": "Join our virtual venue and get ready for an amazing day"
+        "time": "12PM",
+        "title": "Opening and greetings"
       },
       {
-        "time": "10:45am - 11:00am",
-        "title": "Welcome & Introductions",
-        "description": "Meet the community and learn what's in store"
+        "time": "1PM",
+        "title": "Presentations and lightning talks",
+        "online": "https://electronworkshop.com.au/goto/venue"
       },
       {
-        "time": "11:00am - 12:00pm",
-        "title": "Big Blue Button",
-        "presenter": "Andrew Pam",
-        "description": "Melbourne, Australia"
+        "time": "2PM",
+        "title": "Makerspace tour"
       },
       {
-        "time": "12:00pm - 12:30pm",
-        "title": "Xournal++",
-        "presenter": "Roland",
-        "description": "Peertube presentation"
-      },
-      {
-        "time": "12:30pm - 1:30pm",
-        "title": "Break & Discussion",
-        "description": "Continue conversations and network with attendees"
-      },
-      {
-        "time": "1:30pm - 2:30pm",
-        "title": "Open Source Industry (Australia)",
-        "description": "Industry insights and opportunities"
-      },
-      {
-        "time": "2:30pm - 3:30pm",
-        "title": "Lightning Talks",
-        "description": "Quick-fire presentations from the community"
-      },
-      {
-        "time": "3:30pm - 4:30pm",
-        "title": "Bangle JS",
-        "presenter": "Gordon Williams",
-        "description": "United Kingdom"
-      },
-      {
-        "time": "4:30pm - 5:30pm",
-        "title": "Chatons",
-        "presenter": "Martin Cronel",
-        "description": "Belgium"
-      },
-      {
-        "time": "5:30pm - Official",
-        "title": "Event Close"
+        "time": "2PM",
+        "title": "Closure"
       }
     ]
   },
