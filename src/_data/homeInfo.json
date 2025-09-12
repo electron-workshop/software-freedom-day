@@ -1,0 +1,164 @@
+{
+  "event": {
+    "logo": "https://software-freedom-day.netlify.app/assets/sfdlogo_622wide.png",
+    "title": "Software Freedom Day",
+    "subtitle": "Join the Movement",
+    "tagline": "Join the Movement • Celebrate Freedom • Shape the Future",
+    "date": "Saturday 20th September 2025",
+    "time": "10:30am - 5:30pm",
+    "timezone": "AEST",
+    "admission": "Free Event",
+    "audience": "Newcomers Welcome",
+    "registration_url": "https://venue.electronworkshop.com.au/r/softwarefreedomday",
+    "cta_text": "Register Now",
+    "meta_description": "Celebrate freedom and innovation at Software Freedom Day 2025. Join developers, advocates, and newcomers for talks, discussions, and community events online.",
+    "preview_image": "https://software-freedom-day.netlify.app/assets/sfd-2025-preview.png",
+    "url": "https://software-freedom-day.netlify.app/"
+  },
+  "about": {
+    "title": "Why Software Freedom Matters",
+    "cards": [
+      {
+        "icon": "🗽",
+        "title": "Freedom & Independence",
+        "description": "Free Software and Open Source celebrate the freedom and independence of people who use software. These are ethical approaches that value your fundamental rights to use, study, share, and modify software."
+      },
+      {
+        "icon": "🌍",
+        "title": "Global Community",
+        "description": "Join us for the 21st annual Software Freedom Day celebrations in Australia. Connect with leading contributors and organizers building businesses around Free and Open Source projects."
+      },
+      {
+        "icon": "🚀",
+        "title": "Innovation & Ethics",
+        "description": "Learn about the ethics of software development, the advantages of open hardware, and how Free Software has grown from philosophy to powering the entire digital freedom ecosystem."
+      }
+    ]
+  },
+  "schedule": {
+    "title": "Event Schedule",
+    "events": [
+      {
+        "time": "10:15am - 10:45am",
+        "title": "Online Session Opens",
+        "description": "Join our virtual venue and get ready for an amazing day"
+      },
+      {
+        "time": "10:45am - 11:00am",
+        "title": "Welcome & Introductions",
+        "description": "Meet the community and learn what's in store"
+      },
+      {
+        "time": "11:00am - 12:00pm",
+        "title": "Big Blue Button",
+        "presenter": "Andrew Pam",
+        "description": "Melbourne, Australia"
+      },
+      {
+        "time": "12:00pm - 12:30pm",
+        "title": "Xournal++",
+        "presenter": "Roland",
+        "description": "Peertube presentation"
+      },
+      {
+        "time": "12:30pm - 1:30pm",
+        "title": "Break & Discussion",
+        "description": "Continue conversations and network with attendees"
+      },
+      {
+        "time": "1:30pm - 2:30pm",
+        "title": "Open Source Industry (Australia)",
+        "description": "Industry insights and opportunities"
+      },
+      {
+        "time": "2:30pm - 3:30pm",
+        "title": "Lightning Talks",
+        "description": "Quick-fire presentations from the community"
+      },
+      {
+        "time": "3:30pm - 4:30pm",
+        "title": "Bangle JS",
+        "presenter": "Gordon Williams",
+        "description": "United Kingdom"
+      },
+      {
+        "time": "4:30pm - 5:30pm",
+        "title": "Chatons",
+        "presenter": "Martin Cronel",
+        "description": "Belgium"
+      },
+      {
+        "time": "5:30pm - Official",
+        "title": "Event Close"
+      }
+    ]
+  },
+  "partners": {
+    "title": "Our Partners",
+    "sponsors": [
+      {
+        "name": "Linux Australia",
+        "type": "Sponsored By",
+        "img": "/assets/LCA_logo.svg",
+        "link": "https://linux.org.au/"
+      }
+    ],
+    "supporters": [
+      {
+        "name": "Serversaurus",
+        "type": "Green Hosting Partner",
+        "img": "/assets/serversaurus_logo.png",
+        "link": "https://serversaurus.com.au/"
+      },
+      {
+        "name": "Electron Workshop",
+        "type": "Supporter",
+        "img": "/assets/EW.png",
+        "link": "http://electronworkshop.com.au/"
+      },
+      {
+        "name": "Free Software Australia",
+        "type": "Organizer",
+        "img": "/assets/fsmlogo.png",
+        "link": "https://freesoftware.org.au/"
+      },
+      {
+        "name": "Linux Users Victoria",
+        "type": "Community Partner",
+        "img": "/assets/LUV_logo.webp",
+        "link": "https://luv.asn.au/"
+      }
+    ]
+  },
+  "footer": {
+    "resources": {
+      "title": "Get Started",
+      "links": [
+        { "name": "Free Software Foundation", "url": "http://www.fsf.org/" },
+        { "name": "GNU Project", "url": "http://www.gnu.org/" },
+        { "name": "Trisquel GNU/Linux", "url": "http://www.trisquel.info/" },
+        { "name": "Debian GNU/Linux", "url": "http://www.debian.org/" }
+      ]
+    },
+    "meeting_tips": {
+      "title": "Meeting Tips",
+      "tips": [
+        "Mute microphone when not speaking",
+        "Headsets recommended",
+        "Use chat for questions",
+        "\"Raise hand\" button available"
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "committee@freesoftware.org.au",
+      "code_of_conduct_url": "http://freesoftware.org.au/code-of-conduct/",
+      "code_of_conduct_text": "Code of Conduct",
+      "values": "Be respectful • Be inclusive • Be aware"
+    },
+    "copyright": {
+      "text": "© 2025 Software Freedom Day Australia. Photo Credit: Chris Samuel 2010 (CC BY-SA)",
+      "tagline": "Family friendly event • Participation is free and liberating"
+    }
+  }
+}
