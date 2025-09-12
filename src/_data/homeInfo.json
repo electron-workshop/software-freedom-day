@@ -78,39 +78,25 @@
     ]
   },
   "partners": {
-    "title": "Our Partners",
+    "title": "",
     "sponsors": [
       {
-        "name": "Linux Australia",
-        "type": "Sponsored By",
-        "img": "/assets/LCA_logo.svg",
-        "link": "https://linux.org.au/"
-      }
-    ],
-    "supporters": [
+        "name": "Linux Victoria",
+        "type": "Organiser",
+        "img": "/assets/images/logos/linuxvictoria.png",
+        "link": "https://linuxvictoria.org"
+      },
       {
-        "name": "Serversaurus",
-        "type": "Green Hosting Partner",
-        "img": "/assets/serversaurus_logo.png",
-        "link": "https://serversaurus.com.au/"
+        "name": "Melbourne PC User / Mebourne Creators Collective",
+        "type": "Venue Sponser",
+        "img": "/assets/images/logos/melbpc.png",
+        "link": "https://www.melbpc.org.au/"
       },
       {
         "name": "Electron Workshop",
-        "type": "Supporter",
-        "img": "/assets/EW.png",
-        "link": "http://electronworkshop.com.au/"
-      },
-      {
-        "name": "Free Software Australia",
-        "type": "Organizer",
-        "img": "/assets/fsmlogo.png",
-        "link": "https://freesoftware.org.au/"
-      },
-      {
-        "name": "Linux Users Victoria",
-        "type": "Community Partner",
-        "img": "/assets/LUV_logo.webp",
-        "link": "https://luv.asn.au/"
+        "type": "Online Venue Sponsor",
+        "img": "/assets/images/logos/ElectronWorkshopLogo.png",
+        "link": "https://electroworkshop.org"
       }
     ]
   },
@@ -135,7 +121,7 @@
     },
     "contact": {
       "title": "Contact",
-      "email": "committee@freesoftware.org.au",
+      "email": "team@linuxvictoria.org",
       "code_of_conduct_url": "http://freesoftware.org.au/code-of-conduct/",
       "code_of_conduct_text": "Code of Conduct",
       "values": "Be respectful • Be inclusive • Be aware"
