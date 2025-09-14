@@ -24,19 +24,23 @@ cta) ========================= #}
     <p class="fw-semibold opacity-75 mb-4 fs-4">{{ homeInfo.event.tagline }}</p>
 
     <div class="date-info mb-5 fs-5">
-      <strong>{{ homeInfo.event.date }}</strong><br />
+      <strong><h2>{{ homeInfo.event.date }}<h2></strong><br />
       {{ homeInfo.event.time }} • {{ homeInfo.event.timezone }} • {{
       homeInfo.event.admission }} • {{ homeInfo.event.audience }}
     </div>
 
-    {% if homeInfo.event.registration_url and homeInfo.event.cta_text %}
-    <a
-      href="{{ homeInfo.event.registration_url }}"
-      class="btn btn-primary btn-lg cta-button"
-    >
-      {{ homeInfo.event.cta_text }}
-    </a>
-    {% endif %}
+    <div class="mb-3">
+      <a href="/#register" class="btn btn-primary btn-lg cta-button">
+        Register Now
+      </a>
+    </div>
+
+    <div>
+      <a href="/#lightning" class="btn btn-primary btn-lg cta-button">
+        Submit a Lightning Talk
+      </a>
+    </div>
+
   </div>
 </section>
 
