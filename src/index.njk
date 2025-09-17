@@ -5,6 +5,17 @@ permalink: "/"
 preview_image: "https://software-freedom-day.netlify.app/assets/sfd-preview-r1.png"
 ---
 
+<style>
+  @keyframes flash-green {
+    0%, 100% { box-shadow: 0 0 0 .25rem rgba(25, 135, 84, .25); }
+    50%       { box-shadow: 0 0 0 .65rem rgba(25, 135, 84, .55); }
+  }
+  .flash-outline {
+    animation: flash-green 0.8s ease-in-out 4; /* ~3.2s total */
+  }
+</style>
+
+
 {# ========================= HERO (keeps your gradient, grid overlay, particles,
 cta) ========================= #}
 <section
@@ -376,12 +387,23 @@ your working hero) ========================= #}
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-      e.preventDefault()
-      document
-        .querySelector(this.getAttribute("href"))
-        .scrollIntoView({ behavior: "smooth" })
-    })
-  })
+      e.preventDefault();
+      const href = this.getAttribute("href");
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      target.scrollIntoView({ behavior: "smooth" });
+
+      // If the target is the lightning form, flash it
+      if (href === "#lightning") {
+        setTimeout(() => {
+          if (typeof highlightLightning === "function") {
+            highlightLightning();
+          }
+        }, 300);
+      }
+    });
+  });
 
   const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
   const observer = new IntersectionObserver((entries) => {
@@ -443,4 +465,36 @@ your working hero) ========================= #}
       }
     }
   })()
+</script>
+
+<script>
+  function highlightLightning() {
+    const el = document.getElementById("lightning");
+    if (!el) return;
+
+    // Add Bootstrap utilities for a strong green accent
+    el.classList.add("border", "border-success", "border-3", "rounded-3", "shadow", "bg-success-subtle", "flash-outline");
+
+    // Make it keyboard-focusable for an accessible focus ring
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+    el.focus({ preventScroll: true });
+
+    // Remove the temporary effects after the animation finishes
+    setTimeout(() => {
+      el.classList.remove("flash-outline", "bg-success-subtle", "border-3");
+      // keep a subtle border so it still looks framed
+      // (remove the next line if you want it completely back to normal)
+      el.classList.remove("border", "border-success");
+    }, 3200);
+  }
+
+  // Trigger when arriving with #lightning in the URL
+  if (window.location.hash === "#lightning") {
+    // If you want smooth scroll on direct visits too:
+    const target = document.getElementById("lightning");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(highlightLightning, 350);
+    }
+  }
 </script>
