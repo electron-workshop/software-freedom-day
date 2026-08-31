@@ -43,7 +43,7 @@
   },
   "contact": {
     "email": "team@linuxvictoria.org",
-    "codeOfConductUrl": "http://freesoftware.org.au/code-of-conduct/",
+    "codeOfConductUrl": "",
     "codeOfConductText": "Code of conduct",
     "values": "Run by volunteers. Everyone welcome."
   }

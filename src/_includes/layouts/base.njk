@@ -35,11 +35,29 @@
 
   <div class="sheet">
     <div class="rail rail--top">
-      <span>{{ site.name }} &middot; {{ site.date }}</span>
+      {# Logo only, linking home. The artwork itself reads "Software Freedom
+         Day", so the alt text carries that name for anyone who cannot see it. #}
+      <a class="brand" href="/">
+        <img class="brand__logo"
+             src="/assets/images/sfdlogo_622wide.png"
+             alt="Software Freedom Day, home page"
+             width="622" height="160">
+      </a>
+
+      <span class="rail__date">{{ site.date }}</span>
+
       <nav aria-label="Site">
-        <a href="/">Locations</a>
+        <a href="/">Events &amp; Locations</a>
         <a href="{{ site.organise.url }}">Host your own</a>
-        <a href="{{ site.archive.url }}">{{ site.archive.linkText }}</a>
+        <a href="{{ site.archive.url }}" target="_blank" rel="noopener noreferrer">
+          {{ site.archive.linkText }}
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 4h6v6"/>
+            <path d="M20 4 11 13"/>
+            <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
       </nav>
     </div>
   </div>
@@ -52,8 +70,12 @@
     <div class="rail rail--bottom">
       <span>{{ site.contact.values }}</span>
       <span>
-        <a href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
-        &middot;
+        {# Code of conduct has its own page coming. Until site.contact.codeOfConductUrl
+           is filled in, show nothing rather than a link that goes nowhere. #}
+        {% if site.contact.codeOfConductUrl %}
+          <a href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
+          &middot;
+        {% endif %}
         <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
       </span>
     </div>

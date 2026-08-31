@@ -21,15 +21,29 @@ permalink: "/"
 
 <div class="sheet">
 
-  {# ===================== HERO ===================== #}
+  {# ===================== HERO =====================
+     Both columns are stacks, so the hero sits at its own natural
+     height instead of stretching to match the column beside it.
+     That leaves room for a photo underneath it. #}
   <div class="grid">
-    <div class="st st--dark st--peel a1 hero col-8">
-      <span class="lab">{{ site.date }}</span>
-      <h1>Software<br>Freedom Day</h1>
-      <p>{{ site.intro }}</p>
+    <div class="stack col-8">
+      <div class="st st--dark st--peel a1 hero">
+        <span class="lab">{{ site.date }}</span>
+        <h1>Software<br>Freedom Day</h1>
+        <p>{{ site.intro }}</p>
+      </div>
+
+      {# IMAGE SLOT #}
+      <div class="st st--photo a4">
+        <div class="ph ph--wide">
+          <span class="ph__icon">&#9635;</span>
+          <span class="ph__label">Photo slot</span>
+          <span class="ph__hint">A warm, welcoming shot of people at a past event</span>
+        </div>
+      </div>
     </div>
 
-    <div class="stack">
+    <div class="stack col-4">
       <div class="st st--green st--peel a4">
         <span class="lab">{{ site.beginners.label }}</span>
         <p class="punch">{{ site.beginners.heading }}</p>
@@ -178,7 +192,17 @@ permalink: "/"
       <h2>{{ site.worldwide.heading }}</h2>
       <p class="st__body" style="max-width:60ch">{{ site.worldwide.body }}</p>
       <div class="acts">
-        <a class="btn btn--primary" href="{{ site.worldwide.url }}">{{ site.worldwide.linkText }}</a>
+        <a class="btn btn--primary btn--ext"
+           href="{{ site.worldwide.url }}"
+           target="_blank" rel="noopener noreferrer">
+          {{ site.worldwide.linkText }}
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 4h6v6"/>
+            <path d="M20 4 11 13"/>
+            <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
       </div>
     </div>
   </div>

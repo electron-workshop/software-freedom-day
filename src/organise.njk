@@ -21,6 +21,11 @@ description: "How to run your own Software Freedom Day catch-up on Saturday 19 S
 
 <div class="sheet">
 
+  {# Way back out, before anything else on the page #}
+  <div class="backbar">
+    <a class="btn btn--back" href="/">Back to the home page</a>
+  </div>
+
   {# ===================== COMPACT HERO (yellow, not charcoal) ===================== #}
   <div class="grid">
     <div class="st st--yellow st--peel a2 hero hero--compact col-12">
@@ -185,9 +190,13 @@ description: "How to run your own Software Freedom Day catch-up on Saturday 19 S
       <span class="lab">Look after people</span>
       <h3>Everyone follows the same code of conduct</h3>
       <p class="st__body" style="max-width:56ch">Read it before the day and make sure your helpers know who to raise a problem with. It applies to every event under the Software Freedom Day banner, including yours.</p>
-      <div class="acts">
-        <a class="btn btn--outline" href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
-      </div>
+      {# Code of conduct page is still being written. The button appears
+         automatically once site.contact.codeOfConductUrl is filled in. #}
+      {% if site.contact.codeOfConductUrl %}
+        <div class="acts">
+          <a class="btn btn--outline" href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 
@@ -201,5 +210,7 @@ description: "How to run your own Software Freedom Day catch-up on Saturday 19 S
       </div>
     </div>
   </div>
+
+  {% include "partials/back-home.njk" %}
 
 </div>

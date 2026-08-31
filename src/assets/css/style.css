@@ -87,7 +87,7 @@ img { max-width: 100%; height: auto; }
   color: #8B8578;
 }
 
-.rail--top { padding: 30px 0 18px; }
+.rail--top { padding: 20px 0 16px; }
 .rail--bottom {
   padding: 26px 4px 60px;
   letter-spacing: 0.04em;
@@ -97,10 +97,45 @@ img { max-width: 100%; height: auto; }
   color: var(--muted);
 }
 
-.rail nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.rail nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
 .rail a { text-decoration: none; }
+.rail nav a { display: inline-flex; align-items: center; gap: 6px; }
 .rail a:hover { color: var(--char); text-decoration: underline; }
 .rail--bottom a { color: var(--char); }
+
+/* Brand: the logo on its own, linking home. The artwork already reads
+   "Software Freedom Day", so no separate wording sits beside it. */
+.brand { display: inline-flex; align-items: center; }
+.brand__logo { display: block; height: 46px; width: auto; }
+.brand:focus-visible { outline: 3px solid var(--char); outline-offset: 4px; }
+
+/* The date sits between the logo and the nav. Charcoal rather than the
+   rail grey, so it reads as information instead of navigation. */
+.rail__date { color: var(--char); font-weight: 600; }
+
+/* External link marker */
+.ext {
+  width: 0.85em;
+  height: 0.85em;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* =============================================================
    Sticker
@@ -246,8 +281,10 @@ img { max-width: 100%; height: auto; }
 .col-9  { grid-column: span 9; }
 .col-12 { grid-column: span 12; }
 
+/* A column of stickers. Width comes from a col-* class, and
+   align-content keeps stickers at their natural height instead of
+   stretching to fill the row. */
 .stack {
-  grid-column: span 4;
   display: grid;
   gap: 20px;
   align-content: start;
@@ -370,8 +407,15 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
 
 .btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
 
+/* Buttons that leave the site and open a new tab */
+.btn--ext { display: inline-flex; align-items: center; gap: 9px; }
+
 .btn--primary { background: var(--char); color: var(--yellow); }
 .btn--primary:hover { background: #000; }
+
+/* A charcoal button on a charcoal sticker would vanish, so flip it. */
+.st--dark .btn--primary { background: var(--yellow); color: var(--char); }
+.st--dark .btn--primary:hover { background: #FFD65C; }
 
 .btn--green { background: var(--green); color: #fff; }
 .btn--green:hover { background: var(--green-dk); }
@@ -382,6 +426,45 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
   border-color: rgba(0, 0, 0, 0.12);
 }
 .btn--outline:hover { border-color: currentColor; }
+
+/* -------------------------------------------------------------
+   Back to home
+   Deliberately large, plainly worded and high contrast, so it is
+   obvious to someone who does not use websites much.
+   ------------------------------------------------------------- */
+
+.backbar { padding: 6px 0 14px; }
+
+.btn--back {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 18px;
+  padding: 15px 26px;
+  min-height: 54px;
+  background: var(--white);
+  color: var(--char);
+  border-color: var(--char);
+}
+.btn--back::before {
+  content: "\2190";
+  font-size: 23px;
+  line-height: 1;
+}
+.btn--back:hover {
+  background: var(--char);
+  color: var(--white);
+  border-color: var(--char);
+}
+
+.backhome { text-align: center; }
+.backhome p {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.backhome .btn--back { font-size: 19px; padding: 17px 30px; }
 
 /* Outline buttons sitting on a coloured sticker */
 .st--green .btn--outline,
@@ -560,7 +643,8 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
    ============================================================= */
 
 @media (max-width: 880px) {
-  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .stack { grid-column: span 12; }
+  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9 { grid-column: span 12; }
+  .brand__logo { height: 38px; }
   .hero--compact { grid-template-columns: 1fr; }
   .st--circle {
     aspect-ratio: auto;
