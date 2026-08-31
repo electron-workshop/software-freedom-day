@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% set siteTitle = (title or (homeInfo.event.title ~ ' - ' ~ homeInfo.event.subtitle)) %}
+  {% set pageTitle = title or site.meta.title %}
+  {% set pageDesc = description or site.meta.description %}
+  {% set pageUrl = site.url + (page.url or "/") %}
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>{{ siteTitle }}</title>
-  <meta name="title" content="Software Freedom Day 2025">
-  <meta name="description" content="20th annual Software Freedom Day celebrations in Australia - 2025. Join us at Melbourne PC User Group's office, or online, to discuss freedom, collaboration, and innovation.">
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDesc }}">
+  <link rel="canonical" href="{{ pageUrl }}">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-
-  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
-
-  {# Bootstrap CSS (keep if you're already bundling locally; otherwise CDN) #}
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  >
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-
-  {# Your existing stylesheet (preserves background/design) #}
-  <link href="/assets/css/style.css" rel="stylesheet">
-
-  {# Description #}
-  <meta name="description" content="{{ description or homeInfo.event.meta_description }}">
-
-  {# Social images: prefer page-level fields; fallback to data #}
-  {% set preview = page.preview_image or preview_image or homeInfo.event.preview_image %}
-  {% set pageUrl = page.url or homeInfo.event.url %}
-
-  {# Open Graph #}
-  <meta property="og:title" content="{{ siteTitle }}">
-  <meta property="og:description" content="{{ description or homeInfo.event.meta_description }}">
-  <meta property="og:image" content="{{ preview }}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ pageDesc }}">
   <meta property="og:url" content="{{ pageUrl }}">
   <meta property="og:type" content="website">
+  {% if preview_image %}<meta property="og:image" content="{{ preview_image }}">{% endif %}
 
-  {# Twitter Card #}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ siteTitle }}">
-  <meta name="twitter:description" content="{{ description or homeInfo.event.meta_description }}">
-  <meta name="twitter:image" content="{{ preview }}">
+  <meta name="twitter:title" content="{{ pageTitle }}">
+  <meta name="twitter:description" content="{{ pageDesc }}">
+  {% if preview_image %}<meta name="twitter:image" content="{{ preview_image }}">{% endif %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
 
-  {# Main content #}
-  {{ content | safe }}
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  {# Bootstrap JS (optional if needed) #}
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
+  <div class="sheet">
+    <div class="rail rail--top">
+      <span>{{ site.name }} &middot; {{ site.date }}</span>
+      <nav aria-label="Site">
+        <a href="/">Locations</a>
+        <a href="{{ site.organise.url }}">Host your own</a>
+        <a href="{{ site.archive.url }}">{{ site.archive.linkText }}</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="sheet">
+    <div class="rail rail--bottom">
+      <span>{{ site.contact.values }}</span>
+      <span>
+        <a href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
+        &middot;
+        <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+      </span>
+    </div>
+  </footer>
 
 </body>
 </html>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "melbourne-inspire9",
+    "status": "confirmed",
+    "city": "Melbourne",
+    "region": "Australia",
+    "venue": "Inspire9",
+    "time": "10am to 6pm",
+    "summary": "Drop in whenever suits and stay as long as you like.",
+    "address": "Inspire9, Melbourne",
+    "map": "",
+    "activities": [
+      {
+        "when": "All day",
+        "title": "Install fest",
+        "description": "Bring the laptop you already have and we'll help you put free software on it. USB sticks provided, plus blank ones to take home."
+      },
+      {
+        "when": "Midday",
+        "title": "Open exchange",
+        "description": "An open floor to talk about open source software. Beginner questions are the whole point, not an interruption."
+      },
+      {
+        "when": "To close",
+        "title": "Lightning talks",
+        "description": "Short talks to finish the day. A few minutes each, and anyone in the room can give one."
+      }
+    ],
+    "actions": [
+      { "label": "Register", "url": "#", "style": "primary" },
+      { "label": "Volunteer on the day", "url": "#", "style": "outline" },
+      { "label": "Submit a lightning talk", "url": "#", "style": "outline" }
+    ]
+  }
+]

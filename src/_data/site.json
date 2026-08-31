@@ -1,0 +1,50 @@
+{
+  "name": "Software Freedom Day",
+  "year": 2026,
+  "url": "https://sfd.org.au",
+  "date": "Saturday 19 September 2026",
+  "dateShort": "Sat 19 Sep",
+  "meta": {
+    "title": "Software Freedom Day 2026",
+    "description": "A worldwide celebration of free and open source software, on Saturday 19 September 2026. Free to attend, no experience needed. Find a location near you or host your own."
+  },
+  "intro": "A worldwide celebration of free and open source software. One day a year, in cities all over the world, people get together to show anyone who's curious what free software can do at home, at work, at school and in government.",
+  "beginners": {
+    "label": "Who it's for",
+    "heading": "Not sure what open source means? You already use it.",
+    "body": "It quietly runs the web, your phone and probably half the apps you opened today. Come and find out what that means. No experience needed, and nobody will assume you have any."
+  },
+  "cost": {
+    "label": "Costs",
+    "value": "FREE",
+    "body": "Every event, everywhere, always."
+  },
+  "worldwide": {
+    "label": "Everywhere else",
+    "heading": "The same day, in dozens of countries",
+    "body": "Software Freedom Day is coordinated worldwide by the Digital Freedom Foundation. If you're not near a location listed here, there may already be one closer than you think.",
+    "url": "https://digitalfreedoms.org",
+    "linkText": "See worldwide locations"
+  },
+  "organise": {
+    "label": "Never organised anything?",
+    "heading": "We'll walk you through it",
+    "body": "A short guide on picking a room, what to put on the USBs, and how to let people know it's happening.",
+    "url": "/organise/",
+    "linkText": "How to host your own"
+  },
+  "submitLocation": {
+    "url": "https://github.com/electron-workshop/software-freedom-day/blob/main/src/_data/events.json",
+    "linkText": "Submit a location"
+  },
+  "archive": {
+    "url": "https://past.sfd.org.au",
+    "linkText": "Past events"
+  },
+  "contact": {
+    "email": "team@linuxvictoria.org",
+    "codeOfConductUrl": "http://freesoftware.org.au/code-of-conduct/",
+    "codeOfConductText": "Code of conduct",
+    "values": "Run by volunteers. Everyone welcome."
+  }
+}
