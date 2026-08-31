@@ -115,14 +115,6 @@ img { max-width: 100%; height: auto; }
   box-shadow:
     0 2px 3px rgba(0, 0, 0, 0.16),
     0 12px 22px rgba(0, 0, 0, 0.13);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.st:hover {
-  transform: translateY(-3px) rotate(0deg) !important;
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.18),
-    0 20px 34px rgba(0, 0, 0, 0.16);
 }
 
 .st--green  { background: var(--green);  color: var(--white); }
@@ -158,10 +150,74 @@ img { max-width: 100%; height: auto; }
   box-shadow: none;
   padding: 30px;
 }
-.st--blank:hover { transform: none !important; box-shadow: none; }
 .st--blank h2,
 .st--blank h3 { color: var(--muted-2); }
 .st--blank .st__body { color: var(--muted); }
+
+/* -------------------------------------------------------------
+   Photo stickers
+   Drop an <img> straight in and it fills the sticker. Leave the
+   .ph placeholder in place until there is a real photo.
+   ------------------------------------------------------------- */
+
+.st--photo { padding: 0; overflow: hidden; }
+
+.st--photo > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.st--photo figure { margin: 0; }
+.st--photo figcaption {
+  padding: 12px 16px 14px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.ph {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 5px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  color: var(--muted);
+  background-color: var(--backing);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.045) 0 10px,
+    transparent 10px 20px
+  );
+  box-shadow: inset 0 0 0 3px var(--backing-3);
+}
+
+.ph--tall { aspect-ratio: 3 / 4; }
+.ph--wide { aspect-ratio: 16 / 9; }
+
+.ph__icon {
+  font-family: Fredoka, sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  opacity: 0.55;
+}
+.ph__label {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ph__hint {
+  font-size: 14.5px;
+  max-width: 26ch;
+  opacity: 0.9;
+}
 
 /* Hand-placed angles */
 .a1 { transform: rotate(-1.4deg); }
@@ -181,9 +237,13 @@ img { max-width: 100%; height: auto; }
 }
 .grid + .grid { margin-top: 20px; }
 
+.col-3  { grid-column: span 3; }
 .col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
 .col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
 .col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
 .col-12 { grid-column: span 12; }
 
 .stack {
@@ -211,6 +271,38 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
 }
 
 .hero p { font-size: 19.5px; max-width: 42ch; opacity: 0.94; }
+
+/* Compact hero: a short wide band rather than a tall block, so the
+   guide page does not open the same way the home page does. */
+.hero--compact {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px 36px;
+  align-items: center;
+  padding: 26px 32px;
+}
+.hero--compact h1 {
+  font-size: clamp(29px, 4.2vw, 46px);
+  line-height: 1;
+  margin-bottom: 7px;
+}
+.hero--compact p { font-size: 17.5px; max-width: 54ch; }
+
+.facts { display: flex; gap: 9px; flex-wrap: wrap; }
+.fact {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 9px 15px;
+  border: 2.5px solid currentColor;
+  border-radius: 999px;
+}
+.fact--solid {
+  background: var(--char);
+  color: var(--yellow);
+  border-color: var(--char);
+}
 
 .lab {
   display: block;
@@ -468,7 +560,8 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
    ============================================================= */
 
 @media (max-width: 880px) {
-  .col-4, .col-6, .col-8, .stack { grid-column: span 12; }
+  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .stack { grid-column: span 12; }
+  .hero--compact { grid-template-columns: 1fr; }
   .st--circle {
     aspect-ratio: auto;
     border-radius: var(--radius);
@@ -489,8 +582,7 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .st { transition: none; }
-  .st:hover { transform: none !important; }
+  .btn { transition: none; }
 }
 
 @media print {

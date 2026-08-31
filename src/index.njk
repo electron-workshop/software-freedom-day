@@ -5,6 +5,20 @@ permalink: "/"
 
 {% set angles = ["a1", "a2", "a3", "a4", "a5"] %}
 
+{#
+  IMAGE SLOTS
+  Anywhere you see a <div class="ph"> ... </div>, that is a placeholder.
+  To use a real photo, delete the whole .ph block and put an <img> in
+  its place, keeping the surrounding .st--photo sticker:
+
+      <div class="st st--photo a3 col-4">
+        <img src="/assets/images/photos/your-photo.jpg" alt="Describe the photo">
+      </div>
+
+  Add a caption by wrapping it in <figure> ... <figcaption>.
+  Photos live in src/assets/images/photos/.
+#}
+
 <div class="sheet">
 
   {# ===================== HERO ===================== #}
@@ -25,6 +39,27 @@ permalink: "/"
       <div class="st st--yellow st--circle a2">
         <div class="mega">{{ site.cost.value }}</div>
         <p class="st__body" style="margin-top:6px">{{ site.cost.body }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== WHAT IT LOOKS LIKE ===================== #}
+  <div class="grid">
+    {# IMAGE SLOT #}
+    <div class="st st--photo a3 col-8">
+      <div class="ph ph--wide">
+        <span class="ph__icon">&#9635;</span>
+        <span class="ph__label">Photo slot</span>
+        <span class="ph__hint">The best wide shot you have of a past year, room full of people and laptops</span>
+      </div>
+    </div>
+
+    {# IMAGE SLOT #}
+    <div class="st st--photo a5 col-4">
+      <div class="ph ph--tall">
+        <span class="ph__icon">&#9635;</span>
+        <span class="ph__label">Photo slot</span>
+        <span class="ph__hint">Someone mid install, or a close up of the USB sticks</span>
       </div>
     </div>
   </div>
