@@ -16,6 +16,10 @@ on:
   watch:
     types: [started]
   fork:
+  # Netlify reports deploys as commit statuses. The success status carries
+  # the real deploy preview URL, and it fires once, unlike the bot comment
+  # which Netlify edits repeatedly.
+  status:
 
 jobs:
   notify:
@@ -43,6 +47,10 @@ jobs:
           PUSH_REF: ${{ github.ref }}
           RELEASE_NAME: ${{ github.event.release.name }}
           RELEASE_URL: ${{ github.event.release.html_url }}
+          STATUS_STATE: ${{ github.event.state }}
+          STATUS_CONTEXT: ${{ github.event.context }}
+          STATUS_TARGET: ${{ github.event.target_url }}
+          STATUS_BRANCH: ${{ github.event.branches[0].name }}
         run: |
           echo "🔔 GitHub Event: $EVENT_NAME - $ACTION"
 
@@ -80,8 +88,35 @@ jobs:
             fi
 
           elif [ "$EVENT_NAME" = "issue_comment" ]; then
+            # Bots comment noisily, and Netlify keeps editing its comment.
+            # Deploy previews are handled by the status event below instead.
+            case "$COMMENT_AUTHOR" in
+              *"[bot]")
+                echo "🤖 Skipping comment from bot: $COMMENT_AUTHOR"
+                exit 0
+                ;;
+            esac
             SHORT_BODY=$(echo "$COMMENT_BODY" | head -c 150)
             TEXT="💬 [Issue] $COMMENT_AUTHOR commented in $REPO:%0A${SHORT_BODY}%0A[View on GitHub]($COMMENT_URL)"
+
+          elif [ "$EVENT_NAME" = "status" ]; then
+            # Only Netlify deploy previews, and only once they have succeeded.
+            # A pending status points at the build log, a successful one points
+            # at the preview site itself, which is the link worth sending.
+            case "$STATUS_CONTEXT" in
+              *deploy-preview*) ;;
+              *)
+                echo "⏭️ Not a deploy preview status: $STATUS_CONTEXT"
+                exit 0
+                ;;
+            esac
+
+            if [ "$STATUS_STATE" != "success" ]; then
+              echo "⏭️ Deploy preview is $STATUS_STATE, waiting for success"
+              exit 0
+            fi
+
+            TEXT="🚀 [Deploy Preview] ready for ${STATUS_BRANCH:-$REPO}%0A[Open the preview]($STATUS_TARGET)"
 
           elif [ "$EVENT_NAME" = "push" ]; then
             BRANCH=$(echo "$PUSH_REF" | sed 's|refs/heads/||')
