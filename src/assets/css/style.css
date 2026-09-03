@@ -99,6 +99,16 @@ img { max-width: 100%; height: auto; }
 }
 
 .rail nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+
+/* -------------------------------------------------------------
+   Menu
+   One <details> serves both layouts. Wide screens hide the button
+   and force the panel open, so it behaves as a plain row of links.
+   ------------------------------------------------------------- */
+
+/* Hidden everywhere by default. Only the small screen rules below reveal
+   it, and only once the script has marked the menu ready. */
+.menu__btn { display: none; }
 .rail a { text-decoration: none; }
 .rail nav a { display: inline-flex; align-items: center; gap: 6px; }
 .rail a:hover { color: var(--char); text-decoration: underline; }
@@ -806,7 +816,13 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
 
 @media (max-width: 880px) {
   .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9 { grid-column: span 12; }
-  .brand__logo { height: 38px; }
+  /* 58px on a roomy handset, easing down on narrow ones so the logo and
+     the menu button always share a row rather than costing two. */
+  .brand__logo { height: clamp(46px, 13.5vw, 58px); }
+
+  /* The bigger logo leaves less room, so the rail tightens up to keep the
+     logo and the menu button on one row. */
+  .rail--top { gap: 10px 12px; padding: 14px 0 12px; }
   .hero--compact { grid-template-columns: 1fr; }
   .st--circle {
     aspect-ratio: auto;
@@ -822,19 +838,99 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
   .locs-hd { margin-top: 40px; }
   .locs-hd h2 { font-size: 25px; white-space: normal; }
 
-  /* Touch targets. These links are small uppercase text about 16px tall,
-     which is a hard thing to hit with a thumb, so they get padding to
-     reach a comfortable size. Row gap goes to zero because the padding
-     is now doing that job. */
-  .rail--top nav { gap: 0 16px; }
-  .rail--top nav a { padding: 14px 2px; }
+  /* Touch targets on the links that are not in the menu. */
   .rail--bottom a { padding: 8px 0; }
   .loc__address { padding: 6px 0; }
+
+  /* -----------------------------------------------------------
+     Hamburger
+     ----------------------------------------------------------- */
+
+  .menu { position: relative; }
+
+  /* Collapsed only when the script is running. Without it the panel keeps
+     the ordinary layout and every link stays reachable. */
+  .menu.is-ready > .menu__panel { display: none; }
+
+  .menu.is-ready .menu__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 15px 12px 13px;
+    min-height: 48px;
+    background: var(--white);
+    border: 3px solid var(--char);
+    border-radius: 999px;
+    color: var(--char);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    list-style: none;
+  }
+  /* The default disclosure triangle, removed in both dialects. */
+  .menu__btn::-webkit-details-marker { display: none; }
+  .menu__btn::marker { content: ""; }
+  .menu__btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
+
+  /* Three bars drawn with a border and two shadows, so there is no extra
+     markup and no icon font to load. */
+  .menu__bars {
+    width: 20px;
+    height: 2px;
+    background: var(--char);
+    box-shadow: 0 -6px 0 var(--char), 0 6px 0 var(--char);
+  }
+  .menu[data-open] .menu__bars {
+    box-shadow: none;
+    transform: rotate(45deg);
+    position: relative;
+  }
+  .menu[data-open] .menu__bars::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--char);
+    transform: rotate(90deg);
+  }
+
+  /* The panel sits over the page rather than pushing it down, so opening
+     the menu does not shove the hero out of view. */
+  .menu[data-open] > .menu__panel {
+    display: flex;
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 232px;
+    flex-direction: column;
+    /* The row layout centres its items, which in a column means each link
+       shrinks to its own text width. Stretch makes them full width rows. */
+    align-items: stretch;
+    gap: 0;
+    padding: 8px;
+    background: var(--white);
+    border: 3px solid var(--char);
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  }
+  .menu[data-open] > .menu__panel a {
+    display: flex;
+    align-items: center;
+    padding: 15px 16px;
+    min-height: 52px;
+    border-radius: 12px;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--char);
+  }
+  .menu[data-open] > .menu__panel a + a { border-top: 2px solid var(--backing-2); }
+  .menu[data-open] > .menu__panel a:hover { background: var(--backing); text-decoration: none; }
 }
 
 @media (max-width: 520px) {
   body { font-size: 16px; }
-  .st { padding: 24px 22px; }
+  .st:not(.st--photo) { padding: 24px 22px; }
   .rail--top { letter-spacing: 0.12em; }
 
   /* The wordmark is two lines by design. Below this width the 40px floor

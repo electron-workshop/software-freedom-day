@@ -56,19 +56,29 @@
 
       <span class="rail__date">{{ site.date }}</span>
 
-      <nav aria-label="Site">
-        <a href="/">Events &amp; Locations</a>
-        <a href="{{ site.organise.url }}">Host your own</a>
-        <a href="{{ site.archive.url }}" target="_blank" rel="noopener noreferrer">
-          {{ site.archive.linkText }}
-          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M14 4h6v6"/>
-            <path d="M20 4 11 13"/>
-            <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
-          </svg>
-          <span class="sr-only">(opens in a new tab)</span>
-        </a>
-      </nav>
+      {# The button is hidden until the script marks the menu ready, so with
+         no JavaScript the links simply render as an ordinary list rather
+         than sitting behind a button that cannot open. #}
+      <div class="menu" data-menu>
+        <button class="menu__btn" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="menu__bars" aria-hidden="true"></span>
+          <span class="menu__word">Menu</span>
+        </button>
+
+        <nav class="menu__panel" id="site-nav" aria-label="Site">
+          <a href="/">Events &amp; Locations</a>
+          <a href="{{ site.organise.url }}">Host your own</a>
+          <a href="{{ site.archive.url }}" target="_blank" rel="noopener noreferrer">
+            {{ site.archive.linkText }}
+            <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M14 4h6v6"/>
+              <path d="M20 4 11 13"/>
+              <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+            </svg>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </div>
 
@@ -132,6 +142,37 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Progressive enhancement: the markup is a plain list of links until this
+    // runs. Adding is-ready is what lets the stylesheet collapse it behind the
+    // button on small screens.
+    document.querySelectorAll("[data-menu]").forEach(function (menu) {
+      var btn = menu.querySelector(".menu__btn");
+      if (!btn) return;
+      menu.classList.add("is-ready");
+
+      function setOpen(open) {
+        menu.toggleAttribute("data-open", open);
+        btn.setAttribute("aria-expanded", String(open));
+      }
+
+      btn.addEventListener("click", function () {
+        setOpen(!menu.hasAttribute("data-open"));
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && menu.hasAttribute("data-open")) {
+          setOpen(false);
+          btn.focus();
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target)) setOpen(false);
+      });
+    });
+  </script>
 
 </body>
 </html>
