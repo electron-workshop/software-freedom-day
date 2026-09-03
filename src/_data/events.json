@@ -21,17 +21,17 @@
       {
         "when": "All day",
         "title": "Install fest",
-        "description": "Bring the laptop you already have and we'll help you put free software on it. USB sticks provided, plus blank ones to take home."
+        "description": "Got a laptop that <strong>can't run Windows 11</strong>? It isn't rubbish, and you don't have to replace it. Bring it along, we'll put Linux on it, and it'll be <strong>faster than it was</strong>. <strong>Older Macs too</strong>, the ones Apple has stopped updating. USB sticks provided."
       },
       {
         "when": "Midday",
         "title": "Open exchange",
-        "description": "An open floor to talk about open source software. Beginner questions are the whole point, not an interruption."
+        "description": "<strong>Beginner questions are the whole point!</strong> Bring the software that annoys you, or the subscription that keeps creeping up, and we'll talk about what else is out there. The alternatives are usually free, and <strong>they aren't mining your files to train an AI</strong>."
       },
       {
         "when": "To close",
         "title": "Lightning talks",
-        "description": "Short talks to finish the day. A few minutes each, and anyone in the room can give one."
+        "description": "Five minutes each, no slides required. <strong>Show us an open source app you love</strong>, something you fixed, or something you're still figuring out. <strong>It doesn't have to be technical.</strong> Put your name down on the day."
       }
     ],
     "actions": [
@@ -39,11 +39,6 @@
         "label": "Register",
         "url": "#",
         "style": "primary"
-      },
-      {
-        "label": "Submit a lightning talk",
-        "url": "#",
-        "style": "outline"
       }
     ]
   }

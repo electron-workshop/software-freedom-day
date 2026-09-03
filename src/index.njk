@@ -136,7 +136,9 @@ permalink: "/"
             <div class="st st--peel {{ angles[loop.index0 % 5] }} col-4">
               {% if item.when %}<span class="lab">{{ item.when }}</span>{% endif %}
               <h3>{{ item.title }}</h3>
-              {% if item.description %}<p class="st__body">{{ item.description }}</p>{% endif %}
+              {# Descriptions may carry light formatting such as <strong>, so
+                 they are not escaped. Entries arrive by reviewed pull request. #}
+              {% if item.description %}<p class="st__body">{{ item.description | safe }}</p>{% endif %}
             </div>
           {% endfor %}
         </div>
