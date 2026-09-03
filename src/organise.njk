@@ -144,6 +144,11 @@ description: "How to run your own Software Freedom Day catch-up on Saturday 19 S
   "summary": "One line about your catch-up.",
   "address": "12 Example St, Your City",
   "map": "https://maps.example.com/...",
+  "logo": {
+    "src": "/assets/images/logos/your-venue.svg",
+    "alt": "Your Venue",
+    "url": "https://yourvenue.example"
+  },
   "activities": [
     {
       "when": "All day",
@@ -157,7 +162,8 @@ description: "How to run your own Software Freedom Day catch-up on Saturday 19 S
 }</code></pre>
 
       <div class="prose">
-        <p style="margin-bottom:0;opacity:.95">Only <code>id</code>, <code>city</code> and <code>venue</code> are really needed. Everything else is optional and simply will not render if you leave it out. If a pull request is not your thing, email the details instead and we will add them for you.</p>
+        <p style="opacity:.95">Only <code>id</code>, <code>city</code> and <code>venue</code> are really needed. Everything else is optional and simply will not render if you leave it out. If a pull request is not your thing, email the details instead and we will add them for you.</p>
+        <p style="margin-bottom:0;opacity:.95"><strong>Venue logo.</strong> Optional. Put the file in <code>src/assets/images/logos/</code> in the same pull request. SVG or PNG both work, and SVG stays sharp on every screen. For an SVG, keep the <code>viewBox</code> and convert any text to outlines, otherwise it renders in the wrong font. Leave out <code>url</code> and the logo shows without linking anywhere.</p>
       </div>
 
       <div class="acts">

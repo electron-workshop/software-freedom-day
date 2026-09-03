@@ -628,6 +628,47 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
   opacity: 0.92;
 }
 
+/* Venue logo chip. Most venue marks are dark on white, so a white box is
+   both the design and the thing that stops them vanishing on the green. */
+.loc__host {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.loc__host-lab {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.loc__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+}
+/* Caps both dimensions, so a tall square mark and a long wordmark both sit
+   at a sensible size without the chip changing shape much. */
+.loc__logo img {
+  display: block;
+  height: 34px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+}
+a.loc__logo:hover { box-shadow: 0 3px 6px rgba(0, 0, 0, 0.24); }
+a.loc__logo:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+}
+
 /* =============================================================
    Prose (guide page)
    ============================================================= */

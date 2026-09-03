@@ -73,7 +73,8 @@ permalink: "/"
   </div>
 
   {% for event in events %}
-    <section class="loc loc--confirmed" id="{{ event.id }}">
+    {% set status = event.status or "confirmed" %}
+    <section class="loc loc--{{ status }}" id="{{ event.id }}">
       <span class="loc__tab">
         Location {% if loop.index < 10 %}0{% endif %}{{ loop.index }}
         {%- if event.region %} &middot; {{ event.region }}{% endif %}
@@ -82,15 +83,43 @@ permalink: "/"
       <div class="grid">
         <div class="st st--green st--peel a3 col-12 loc__head">
           <div>
-            <span class="lab">Confirmed</span>
+            <span class="lab">{{ status | capitalize }}</span>
             <h2>{{ event.venue }}{% if event.city %}, {{ event.city }}{% endif %}</h2>
             {% if event.summary %}<p class="st__body">{{ event.summary }}</p>{% endif %}
             {% if event.address %}
               {% if event.map %}
-                <a class="loc__address" href="{{ event.map }}" target="_blank" rel="noopener">{{ event.address }}</a>
+                <a class="loc__address" href="{{ event.map }}" target="_blank" rel="noopener noreferrer">
+                  {{ event.address }}
+                  <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M14 4h6v6"/>
+                    <path d="M20 4 11 13"/>
+                    <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+                  </svg>
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
               {% else %}
                 <span class="loc__address">{{ event.address }}</span>
               {% endif %}
+            {% endif %}
+
+            {# Optional venue logo. The white chip is what keeps a dark logo
+               readable on the green, so the box is doing real work here.
+               Rendered as an <img> and never inlined, because these files
+               arrive by pull request. #}
+            {% if event.logo and event.logo.src %}
+              <div class="loc__host">
+                <span class="loc__host-lab">Hosted at</span>
+                {% if event.logo.url %}
+                  <a class="loc__logo" href="{{ event.logo.url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ event.logo.src }}" alt="{{ event.logo.alt or event.venue }}" loading="lazy" decoding="async">
+                    <span class="sr-only">(opens in a new tab)</span>
+                  </a>
+                {% else %}
+                  <span class="loc__logo">
+                    <img src="{{ event.logo.src }}" alt="{{ event.logo.alt or event.venue }}" loading="lazy" decoding="async">
+                  </span>
+                {% endif %}
+              </div>
             {% endif %}
           </div>
           <div class="loc__when">
