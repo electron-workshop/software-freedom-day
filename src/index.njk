@@ -1,500 +1,244 @@
 ---
 layout: base.njk
 permalink: "/"
-# Optional page preview image override:
-preview_image: "https://software-freedom-day.netlify.app/assets/sfd-preview-r1.png"
 ---
 
-<style>
-  @keyframes flash-green {
-    0%, 100% { box-shadow: 0 0 0 .25rem rgba(25, 135, 84, .25); }
-    50%       { box-shadow: 0 0 0 .65rem rgba(25, 135, 84, .55); }
-  }
-  .flash-outline {
-    animation: flash-green 0.8s ease-in-out 4; /* ~3.2s total */
-  }
-</style>
+{% set angles = ["a1", "a2", "a3", "a4", "a5"] %}
 
+{#
+  IMAGE SLOTS
+  Anywhere you see a <div class="ph"> ... </div>, that is a placeholder.
+  To use a real photo, delete the whole .ph block and put an <img> in
+  its place, keeping the surrounding .st--photo sticker:
 
-{# ========================= HERO (keeps your gradient, grid overlay, particles,
-cta) ========================= #}
-<section
-  class="hero py-5 d-flex align-items-center position-relative overflow-hidden"
->
-  <div class="container text-center">
-    <div class="hero-logo mb-3">
-      <img
-        src="{{ homeInfo.event.logo }}"
-        alt="{{ homeInfo.event.title }} logo"
-        class="img-fluid"
-        style="max-width: 280px"
-      />
-    </div>
+      <div class="st st--photo a3 col-4">
+        <img src="/assets/images/photos/your-photo.jpg" alt="Describe the photo">
+      </div>
 
-    <h1 class="fw-bold mb-2 display-5">{{ homeInfo.event.title }}</h1>
-    <p class="fw-semibold opacity-75 mb-4 fs-4">{{ homeInfo.event.tagline }}</p>
+  Add a caption by wrapping it in <figure> ... <figcaption>.
+  Photos live in src/assets/images/photos/.
+#}
 
-    <div class="date-info mb-5 fs-5">
-      <strong><h2>{{ homeInfo.event.date }}<h2></strong><br />
-      {{ homeInfo.event.time }} • {{ homeInfo.event.timezone }} • {{
-      homeInfo.event.admission }} • {{ homeInfo.event.audience }}
-    </div>
+<div class="sheet">
 
-    <div class="mb-3">
-      <a href="/#register" class="btn btn-primary btn-lg cta-button">
-        Register Now
-      </a>
-    </div>
+  {# ===================== HERO =====================
+     Both columns are stacks, so the hero sits at its own natural
+     height instead of stretching to match the column beside it.
+     That leaves room for a photo underneath it. #}
+  <div class="grid">
+    <div class="stack col-8">
+      <div class="st st--dark st--peel a1 hero">
+        <span class="lab">{{ site.date }}</span>
+        <h1>Software<br>Freedom Day</h1>
+        <p>{{ site.intro }}</p>
+      </div>
 
-    <div>
-      <a href="/#lightning" class="btn btn-primary btn-lg cta-button">
-        Submit a Lightning Talk
-      </a>
-    </div>
+      {# IMAGE SLOTS #}
+      <div class="grid">
+        <div class="st st--photo a3 col-8">
+          <img src="/assets/images/photos/talk-2025.jpg"
+               alt="A room of people watching a talk at Software Freedom Day 2025. The slide behind the speaker reads Freedom Also Means Sharing."
+               width="1440" height="710" loading="lazy" decoding="async">
+        </div>
 
-  </div>
-</section>
-
-{# ========================= MAIN CONTENT (mirrors event.html layout)
-========================= #}
-<div class="container my-5">
-  {# Event Details & Schedule Row (two columns) #}
-  <div class="row g-4 mb-5">
-    {# LEFT: Event Details (card with two columns) #}
-    <div class="col-lg-6">
-      <div class="card h-auto border-0 shadow h-100">
-        <div class="card-body p-4">
-          <div class="row g-4">
-            {# Column 1: Event Details (auto from JSON) #}
-            <div class="col-md-12 mb-5 mb-md-0">
-              <h3 class="card-title fw-bold mb-4 text-success">
-                {{ homeInfo.eventDetails.title or 'Essentials' }}
-              </h3>
-
-              {% for card in homeInfo.eventDetails.cards %}
-              <div class="mb-4">
-                <div
-                  class="p-3 bg-light rounded border-start border-success border-5"
-                >
-                  <h5 class="fw-semibold mb-1 text-success">
-                    {{ card.title }}
-                  </h5>
-                  {% if card.description %} {# Support both '\n' and '/n' line
-                  breaks from JSON #} {% set _desc = card.description |
-                  replace('\\n', '<br />') | replace('/n', '<br />') %}
-                  <p class="mb-0 multiline">{{ _desc | safe }}</p>
-                  {% endif %} {% if card.link %}
-                  <a
-                    href="{{ card.link }}"
-                    class=""
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {{ card.linkText or card.link }}
-                  </a>
-                  {% endif %}
-                </div>
-              </div>
-              {% endfor %}
-
-              {% if homeInfo.event.registration_url and homeInfo.event.cta_text
-              %}
-              <a
-                href="{{ homeInfo.event.registration_url }}"
-                class="btn btn-primary btn-lg btn btn-lg btn-success"
-              >
-                {{ homeInfo.event.cta_text }}
-              </a>
-              {% endif %}
-
-            </div>
-          </div>
+        <div class="st st--photo a5 col-4">
+          <img src="/assets/images/photos/laptops-balloons.jpg"
+               alt="Four volunteers sitting together holding laptops, with Software Freedom Day balloons around them."
+               width="370" height="450" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
 
-    {# RIGHT: Schedule (badges like event.html) + Lightning talk form #}
-    <div class="col-lg-6">
-      {# --- Schedule card --- #}
-      <div class="card border-0 shadow mb-4">
-        <div class="card-body p-4">
-          <h3 class="card-title fw-bold mb-4 text-success">
-            <i class="bi bi-calendar3 me-2"></i>{{ homeInfo.schedule.title }}
-          </h3>
+    <div class="stack col-4">
+      <div class="st st--green st--peel a4">
+        <span class="lab">{{ site.beginners.label }}</span>
+        <p class="punch">{{ site.beginners.heading }}</p>
+        <p class="st__body" style="margin-top:8px">{{ site.beginners.body }}</p>
+      </div>
 
-          <div class="row g-2 text-wrap">
-            {% for item in homeInfo.schedule.events %} {% set isBreak =
-            item.description and ('Break' in item.description) %}
-            <div class="col-12">
-              <div
-                class="badge w-100 text-start p-2 rounded text-wrap fs-6 {% if isBreak %} bg-warning text-dark {% else %} bg-success-subtle text-success border border-success {% endif %}"
-              >
-                <span class="fw-semibold">{{ item.time }}</span>
-                {% if item.title %} – {{ item.title }}{% endif %} {% if
-                item.presenter %}
-                <span class="ms-1">( {{ item.presenter }} )</span>
-                {% endif %} {% if item.online %}
-                <a href="{{ item.online }}" class="hybrid-badge">
-                  <i class="bi bi-wifi"></i>Hybrid
+      <div class="st st--yellow st--circle a2">
+        <div class="mega">{{ site.cost.value }}</div>
+        <p class="st__body" style="margin-top:6px">{{ site.cost.body }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== LOCATIONS ===================== #}
+  <div class="locs-hd">
+    <h2>Where it's on</h2>
+    <span class="rule"></span>
+    <span class="count">
+      {{ events | length }} confirmed
+    </span>
+  </div>
+
+  {% for event in events %}
+    {% set status = event.status or "confirmed" %}
+    <section class="loc loc--{{ status }}" id="{{ event.id }}">
+      <span class="loc__tab">
+        Location {% if loop.index < 10 %}0{% endif %}{{ loop.index }}
+        {%- if event.region %} &middot; {{ event.region }}{% endif %}
+      </span>
+
+      <div class="grid">
+        <div class="st st--green st--peel a3 col-12 loc__head">
+          <div>
+            <span class="lab">{{ status | capitalize }}</span>
+            <h2>{{ event.venue }}{% if event.city %}, {{ event.city }}{% endif %}</h2>
+            {% if event.summary %}<p class="st__body">{{ event.summary }}</p>{% endif %}
+            {% if event.address %}
+              {% if event.map %}
+                <a class="loc__address" href="{{ event.map }}" target="_blank" rel="noopener noreferrer">
+                  {{ event.address }}
+                  <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M14 4h6v6"/>
+                    <path d="M20 4 11 13"/>
+                    <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+                  </svg>
+                  <span class="sr-only">(opens in a new tab)</span>
                 </a>
+              {% else %}
+                <span class="loc__address">{{ event.address }}</span>
+              {% endif %}
+            {% endif %}
+
+            {# Optional venue logo. The white chip is what keeps a dark logo
+               readable on the green, so the box is doing real work here.
+               Rendered as an <img> and never inlined, because these files
+               arrive by pull request. #}
+            {% if event.logo and event.logo.src %}
+              <div class="loc__host">
+                <span class="loc__host-lab">Hosted at</span>
+                {% if event.logo.url %}
+                  <a class="loc__logo" href="{{ event.logo.url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ event.logo.src }}" alt="{{ event.logo.alt or event.venue }}" loading="lazy" decoding="async">
+                    <span class="sr-only">(opens in a new tab)</span>
+                  </a>
+                {% else %}
+                  <span class="loc__logo">
+                    <img src="{{ event.logo.src }}" alt="{{ event.logo.alt or event.venue }}" loading="lazy" decoding="async">
+                  </span>
                 {% endif %}
-              </div>
-            </div>
-            {% endfor %} {# Optional Notes (kept commented like your original)
-            #} {# {% if homeInfo.footer and homeInfo.footer.resources and
-            homeInfo.footer.resources.links and homeInfo.footer.resources.links
-            | length > 0 %}
-            <div class="col-12">
-              <p class="text-success mb-1 mt-3">Notes:</p>
-              <ul class="mb-0">
-                <li>
-                  See
-                  <a href="{{ homeInfo.footer.resources.links[0].url }}"
-                    >{{ homeInfo.footer.resources.links[0].name }}</a
-                  >
-                  for more info.
-                </li>
-              </ul>
-            </div>
-            {% endif %} #}
-          </div>
-        </div>
-      </div>
-
-      {# --- Lightning talk form card --- #}
-      <div class="card border-0 shadow" id="lightning">
-        <div class="card-body p-4">
-          <h3 class="card-title fw-bold mb-3 text-success fs-5">
-            <i class="bi bi-lightning-fill me-2"></i>Lightning talk form
-          </h3>
-          <p class="text-muted mb-4">
-            Have a 3–5 minute talk to share? Submit your details below.
-          </p>
-
-          <form
-            class="needs-validation"
-            name="LightningTalks"
-            id="LightningTalks"
-            method="post"
-            netlify
-            netlify-honeypot="bot-field"
-            novalidate
-          >
-            <!-- Netlify requirements -->
-            <input type="hidden" name="form-name" value="LightningTalks" />
-            <div style="display: none">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
-            </div>
-
-            {# Name + Email side-by-side on md+ #}
-            <div class="row g-3">
-              <div class="col-12 col-md-6">
-                <label for="ltName" class="form-label">Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  id="ltName"
-                  autocomplete="name"
-                  required
-                />
-                <div class="invalid-feedback">Please enter your name.</div>
-              </div>
-              <div class="col-12 col-md-6">
-                <label for="ltEmail" class="form-label">Email *</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  id="ltEmail"
-                  autocomplete="email"
-                  required
-                />
-                <div class="invalid-feedback">Please enter a valid email.</div>
-              </div>
-            </div>
-
-            <div class="mt-3">
-              <label for="ltTopic" class="form-label">Topic *</label>
-              <textarea
-                class="form-control"
-                id="ltTopic"
-                name="topic"
-                rows="2"
-                required
-              ></textarea>
-              <div class="invalid-feedback">Please enter your topic.</div>
-            </div>
-
-            <button type="submit" class="btn btn-success mt-3">
-              Submit lightning talk
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {# Key Themes section (re-uses about.cards in a grid like event.html) #}
-  <div class="row mb-5">
-    <div class="col-12">
-      <div class="card border-0 shadow">
-        <div class="card-body p-4">
-          <h3 class="card-title fw-bold mb-4 text-center text-success">
-            <i class="bi bi-lightbulb-fill me-2"></i>Key Themes
-          </h3>
-
-          <div class="row g-4">
-            {% for card in homeInfo.about.cards %}
-            <div class="col-md-6 col-lg-4">
-              <div class="card border-success h-100 theme-item">
-                <div class="card-body p-3">
-                  <div class="d-flex align-items-start">
-                    <div>
-                      <h6 class="text-success fw-bold mb-2">
-                        {{ card.icon }} {{ card.title }}
-                      </h6>
-                      <small class="text-muted">{{ card.description }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mb-5" id="register">
-    <div class="d-md-none d-block">
-      <iframe
-        src="https://lu.ma/embed/event/evt-oLBzggtF98QfEdk/simple"
-        width="600"
-        height="450"
-        frameborder="0"
-        style="height: 125vh; width: 100%"
-        allow="fullscreen; payment"
-        aria-hidden="false"
-        tabindex="0"
-        class=""
-      ></iframe>
-    </div>
-    <div class="d-none d-md-block">
-      <iframe
-        src="https://lu.ma/embed/event/evt-oLBzggtF98QfEdk/simple"
-        width="600"
-        height="450"
-        frameborder="0"
-        style="height: 80vh; width: 100%"
-        allow="fullscreen; payment"
-        aria-hidden="false"
-        tabindex="0"
-        class=""
-      ></iframe>
-    </div>
-  </div>
-{# Sponsors: each on its own line with type as heading #}
-<div class="row mb-5">
-  <div class="col-12">
-    <div class="card border-0">
-      <div class="card-body p-4">
-        <div class="row">
-          <div class="col-12 col-md-10 offset-0 offset-md-1">
-            {% if homeInfo.partners.sponsors and homeInfo.partners.sponsors | length > 0 %}
-              <h4 class="fw-bold text-success mb-4">{{ homeInfo.partners.title }}</h4>
-
-              <div class="row g-4">
-                {% for sponsor in homeInfo.partners.sponsors %}
-                  <div class="col-12">
-                    <h5 class="fw-bold text-muted text-uppercase mb-2 text-center">
-                      {{ sponsor.type or 'Sponsor' }}
-                    </h5>
-                    <div class="d-flex align-items-center justify-content-center p-4" style="height: 120px;">
-                      <a
-                        href="{{ sponsor.link }}"
-                        class="d-inline-block"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        <img
-                          src="{{ sponsor.img }}"
-                          alt="{{ sponsor.name }}"
-                          style="max-width: 100%; max-height: 100%; object-fit: contain;"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                {% endfor %}
               </div>
             {% endif %}
           </div>
+          <div class="loc__when">
+            <div class="d">{{ site.dateShort }}</div>
+            {% if event.time %}<div class="t">{{ event.time }}</div>{% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% if event.activities and event.activities | length %}
+        <span class="loc__note">What's on at this one</span>
+        <div class="grid">
+          {% for item in event.activities %}
+            <div class="st st--peel {{ angles[loop.index0 % 5] }} col-4">
+              {% if item.when %}<span class="lab">{{ item.when }}</span>{% endif %}
+              <h3>{{ item.title }}</h3>
+              {# Descriptions may carry light formatting such as <strong>, so
+                 they are not escaped. Entries arrive by reviewed pull request. #}
+              {% if item.description %}<p class="st__body">{{ item.description | safe }}</p>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if event.actions and event.actions | length %}
+        <div class="grid">
+          <div class="st st--yellow st--peel a4 col-12">
+            <span class="lab">Take part at {{ event.venue }}</span>
+            <div class="acts" style="margin-top:4px">
+              {% for action in event.actions %}
+                {# A link that is not ready yet renders as an inert span rather
+                   than an anchor to "#", so it cannot be clicked or focused and
+                   plainly reads as not available. #}
+                {% if action.url and action.url != "#" %}
+                  <a class="btn btn--{{ action.style or 'outline' }}" href="{{ action.url }}">{{ action.label }}</a>
+                {% else %}
+                  <span class="btn btn--off" aria-disabled="true">
+                    {{ action.label }}
+                    <span class="btn__soon">Coming soon</span>
+                  </span>
+                {% endif %}
+              {% endfor %}
+
+              {# Generated from the volunteer flag rather than listed in
+                 actions, so a host opts in with one line and the link is
+                 always right. Sits after the listed actions so registering
+                 stays the first thing offered. #}
+              {% if event.volunteer and event.volunteer.open %}
+                <a class="btn btn--green" href="/volunteer/?location={{ event.id }}">Volunteer on the day</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </section>
+  {% endfor %}
+
+  {# ---- The always-open slot ---- #}
+  <section class="loc loc--open" id="add-a-location">
+    <span class="loc__tab">
+      Location {% set next = events | length + 1 %}{% if next < 10 %}0{% endif %}{{ next }} &middot; Unclaimed
+    </span>
+
+    <div class="grid">
+      <div class="st st--blank a3 col-12 loc__head">
+        <div>
+          <span class="lab">No host yet</span>
+          <h2>Your town</h2>
+          <p class="st__body">Every sticker on this sheet started as somebody offering to run one.</p>
+        </div>
+        <div class="loc__when">
+          <div class="d">{{ site.dateShort }}</div>
+          <div class="t">Time set by host</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
+    <span class="loc__note">Whoever hosts picks what's on</span>
 
-  {# Footer card (uses your footer data) #}
-  <div class="row">
-    <div class="col-12">
-      <div
-        class="card text-white border-0"
-        style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%)"
-      >
-        <div class="card-body text-center py-4">
-          <p class="mb-2 fs-5">
-            {{ homeInfo.footer.contact.title }}:
-            <a
-              href="mailto:{{ homeInfo.footer.contact.email }}"
-              class="text-warning text-decoration-none fw-bold"
-            >
-              {{ homeInfo.footer.contact.email }}
-            </a>
-          </p>
-          <p class="mb-2">
-            <a
-              href="{{ homeInfo.footer.contact.code_of_conduct_url }}"
-              class="text-warning text-decoration-none fw-bold"
-            >
-              {{ homeInfo.footer.contact.code_of_conduct_text }}
-            </a>
-          </p>
-          <p class="mb-0 fs-6">{{ homeInfo.footer.contact.values }}</p>
+    <div class="grid">
+      <div class="st st--blank a2 col-6">
+        <h3>It can be small</h3>
+        <p class="st__body">Six people and a kettle is a legitimate catch-up. An install fest, a chat, a film night, or just coffee. You decide what your one looks like.</p>
+        <div class="acts">
+          <a class="btn btn--green" href="{{ site.submitLocation.url }}">{{ site.submitLocation.linkText }}</a>
+        </div>
+      </div>
+
+      <div class="st st--orange st--peel a4 col-6">
+        <span class="lab">{{ site.organise.label }}</span>
+        <h3>{{ site.organise.heading }}</h3>
+        <p class="st__body">{{ site.organise.body }}</p>
+        <div class="acts">
+          <a class="btn btn--outline" href="{{ site.organise.url }}">{{ site.organise.linkText }}</a>
         </div>
       </div>
     </div>
+  </section>
+
+  {# ===================== WORLDWIDE ===================== #}
+  <div class="grid">
+    <div class="st st--dark st--peel a2 col-12">
+      <span class="lab">{{ site.worldwide.label }}</span>
+      <h2>{{ site.worldwide.heading }}</h2>
+      <p class="st__body" style="max-width:60ch">{{ site.worldwide.body }}</p>
+      <div class="acts">
+        <a class="btn btn--primary btn--ext"
+           href="{{ site.worldwide.url }}"
+           target="_blank" rel="noopener noreferrer">
+          {{ site.worldwide.linkText }}
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 4h6v6"/>
+            <path d="M20 4 11 13"/>
+            <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </div>
+    </div>
   </div>
+
 </div>
-{# /container #} {# ========================= JS: particles + reveal (same as
-your working hero) ========================= #}
-<script>
-  function createParticle() {
-    const particle = document.createElement("div")
-    particle.className = "particle"
-    particle.style.left = Math.random() * 100 + "%"
-    particle.style.width = particle.style.height = Math.random() * 4 + 2 + "px"
-    particle.style.animationDuration = Math.random() * 10 + 10 + "s"
-    particle.style.animationDelay = Math.random() * 5 + "s"
-    document.querySelector(".hero").appendChild(particle)
-    setTimeout(() => {
-      particle.remove()
-    }, 20000)
-  }
-  setInterval(createParticle, 1000)
-
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const href = this.getAttribute("href");
-      const target = document.querySelector(href);
-      if (!target) return;
-
-      target.scrollIntoView({ behavior: "smooth" });
-
-      // If the target is the lightning form, flash it
-      if (href === "#lightning") {
-        setTimeout(() => {
-          if (typeof highlightLightning === "function") {
-            highlightLightning();
-          }
-        }, 300);
-      }
-    });
-  });
-
-  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = "1"
-        entry.target.style.transform = "translateY(0)"
-      }
-    })
-  }, observerOptions)
-
-  document.querySelectorAll(".theme-item, .card .badge").forEach((el) => {
-    el.style.opacity = "0"
-    el.style.transform = "translateY(12px)"
-    el.style.transition = "all 0.5s ease"
-    observer.observe(el)
-  })
-</script>
-
-<script>
-  // Bootstrap validity (same pattern as your contact form)
-  ;(() => {
-    "use strict"
-    const forms = document.querySelectorAll(".needs-validation")
-    Array.from(forms).forEach((form) => {
-      form.addEventListener(
-        "submit",
-        (evt) => {
-          if (!form.checkValidity()) {
-            evt.preventDefault()
-            evt.stopPropagation()
-          }
-          form.classList.add("was-validated")
-        },
-        false,
-      )
-    })
-  })()
-</script>
-
-<script>
-  // Prefill via URL params: ?name=...&email=...&topic=...
-  ;(function () {
-    const params = new URLSearchParams(window.location.search)
-    const map = [
-      ["#ltName", ["name", "fullName", "n"]],
-      ["#ltEmail", ["email", "e"]],
-      ["#ltTopic", ["topic", "message", "notes"]],
-    ]
-    for (const [sel, keys] of map) {
-      const el = document.querySelector(sel)
-      if (!el) continue
-      for (const k of keys) {
-        const v = params.get(k)
-        if (v) {
-          el.value = v
-          break
-        }
-      }
-    }
-  })()
-</script>
-
-<script>
-  function highlightLightning() {
-    const el = document.getElementById("lightning");
-    if (!el) return;
-
-    // Add Bootstrap utilities for a strong green accent
-    el.classList.add("border", "border-success", "border-3", "rounded-3", "shadow", "bg-success-subtle", "flash-outline");
-
-    // Make it keyboard-focusable for an accessible focus ring
-    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
-    el.focus({ preventScroll: true });
-
-    // Remove the temporary effects after the animation finishes
-    setTimeout(() => {
-      el.classList.remove("flash-outline", "bg-success-subtle", "border-3");
-      // keep a subtle border so it still looks framed
-      // (remove the next line if you want it completely back to normal)
-      el.classList.remove("border", "border-success");
-    }, 3200);
-  }
-
-  // Trigger when arriving with #lightning in the URL
-  if (window.location.hash === "#lightning") {
-    // If you want smooth scroll on direct visits too:
-    const target = document.getElementById("lightning");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(highlightLightning, 350);
-    }
-  }
-</script>

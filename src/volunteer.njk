@@ -1,0 +1,173 @@
+---
+layout: base.njk
+permalink: "/volunteer/"
+title: "Volunteer at Software Freedom Day"
+description: "Help out at Software Freedom Day on Saturday 19 September 2026. You do not need to be technical. Six short questions and we will be in touch."
+---
+
+<div class="sheet">
+
+  <div class="backbar">
+    <a class="btn btn--back" href="/">Back to the home page</a>
+  </div>
+
+  {# ===================== INTRO ===================== #}
+  <div class="grid">
+    <div class="st st--green st--peel a2 hero hero--compact col-12">
+      <div>
+        <span class="lab">Lend a hand</span>
+        <h1>Help out on the day</h1>
+        <p>You do not need to be technical. If you can say hello to someone at the door and have a chat, that is genuinely all it takes. And if you are on the shy side, this is a friendly room to practise in, and a good way to build a bit of confidence.</p>
+      </div>
+      <div class="facts">
+        <span class="fact fact--solid">{{ site.dateShort }} 2026</span>
+        <span class="fact">Six short questions</span>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== THE FORM =====================
+     A Netlify form. The hidden form-name input is what pairs the
+     submission with the form Netlify found in the built HTML, and
+     netlify-honeypot names the decoy field that real people never see. #}
+  <div class="grid">
+    <div class="st st--peel col-12">
+
+      <form class="frm"
+            name="volunteer"
+            method="POST"
+            action="/volunteer/thanks/"
+            data-netlify="true"
+            netlify-honeypot="bot-field">
+
+        <input type="hidden" name="form-name" value="volunteer">
+
+        {# Decoy for bots. Hidden from people and from screen readers. #}
+        <p class="hp" aria-hidden="true">
+          <label>Leave this empty
+            <input name="bot-field" tabindex="-1" autocomplete="off">
+          </label>
+        </p>
+
+        {% set open = [] %}
+        {% for event in events %}
+          {% if event.volunteer and event.volunteer.open %}{% set _ = open.push(event) %}{% endif %}
+        {% endfor %}
+
+        {% if open | length %}
+          <fieldset class="frm__set" data-location-field>
+            <legend class="frm__legend">Where can you help?</legend>
+            <p class="frm__hint">Tick as many as you like.</p>
+            {% for event in open %}
+              <label class="pick">
+                <input type="checkbox" name="location" value="{{ event.venue }}, {{ event.city }}" data-location-id="{{ event.id }}">
+                <span class="pick__box" aria-hidden="true"></span>
+                <span class="pick__text">
+                  <strong>{{ event.venue }}{% if event.city %}, {{ event.city }}{% endif %}</strong>
+                  {% if event.time %}<span class="pick__sub">{{ site.dateShort }}, {{ event.time }}</span>{% endif %}
+                </span>
+              </label>
+            {% endfor %}
+          </fieldset>
+        {% endif %}
+
+        <fieldset class="frm__set">
+          <legend class="frm__legend">When are you free?</legend>
+          <p class="frm__hint">Either is genuinely useful. Pick both if you can.</p>
+          <label class="pick">
+            <input type="checkbox" name="when" value="On the day">
+            <span class="pick__box" aria-hidden="true"></span>
+            <span class="pick__text">
+              <strong>On the day</strong>
+              <span class="pick__sub">Greeting people, sitting with someone, keeping the room going</span>
+            </span>
+          </label>
+          <label class="pick">
+            <input type="checkbox" name="when" value="In the lead up">
+            <span class="pick__box" aria-hidden="true"></span>
+            <span class="pick__text">
+              <strong>In the lead up</strong>
+              <span class="pick__sub">Spreading the word, preparing USB sticks, planning</span>
+            </span>
+          </label>
+        </fieldset>
+
+        <div class="frm__row">
+          <label class="frm__label" for="v-name">Your name</label>
+          <input class="frm__input" id="v-name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <fieldset class="frm__set">
+          <legend class="frm__legend">How should we reach you?</legend>
+          <p class="frm__hint">Tick whichever you are happy for us to use.</p>
+          <div class="picks--inline">
+            <label class="pick pick--sm">
+              <input type="checkbox" name="contact-method" value="Email">
+              <span class="pick__box" aria-hidden="true"></span>
+              <span class="pick__text"><strong>Email</strong></span>
+            </label>
+            <label class="pick pick--sm">
+              <input type="checkbox" name="contact-method" value="Phone">
+              <span class="pick__box" aria-hidden="true"></span>
+              <span class="pick__text"><strong>Phone</strong></span>
+            </label>
+            <label class="pick pick--sm">
+              <input type="checkbox" name="contact-method" value="Matrix">
+              <span class="pick__box" aria-hidden="true"></span>
+              <span class="pick__text"><strong>Matrix</strong></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="frm__row">
+          <label class="frm__label" for="v-contact">Your address, number or handle</label>
+          <input class="frm__input" id="v-contact" name="contact" type="text" required>
+        </div>
+
+        <div class="frm__row">
+          <label class="frm__label" for="v-notes">Anything else? <span class="frm__opt">Optional</span></label>
+          <textarea class="frm__input" id="v-notes" name="comments" rows="3"></textarea>
+        </div>
+
+        <div class="frm__end">
+          <button class="btn btn--primary btn--big" type="submit">Send this in</button>
+          <p class="frm__note">That is everything we need. Somebody will get in touch to work out the rest with you, and you can still say no once you know what is involved.</p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  {% include "partials/back-home.njk" %}
+
+</div>
+
+<script>
+  // The Volunteer buttons link here with ?location=<id>, so the right box is
+  // already ticked. Without this the page still works, the person just picks
+  // from the list themselves.
+  (function () {
+    var id = new URLSearchParams(window.location.search).get("location");
+    if (!id) return;
+    var box = document.querySelector('[data-location-id="' + CSS.escape(id) + '"]');
+    if (box) box.checked = true;
+  })();
+
+  // Someone who has started filling this in and then taps a link gets the
+  // browser's own "leave site?" prompt. The wording belongs to the browser
+  // and cannot be changed, only triggered.
+  (function () {
+    var form = document.querySelector('form[name="volunteer"]');
+    if (!form) return;
+    var started = false;
+
+    form.addEventListener("input", function () { started = true; });
+    form.addEventListener("submit", function () { started = false; });
+
+    window.addEventListener("beforeunload", function (e) {
+      if (!started) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  })();
+</script>

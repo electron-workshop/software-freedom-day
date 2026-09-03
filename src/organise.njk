@@ -1,0 +1,242 @@
+---
+layout: base.njk
+permalink: "/organise/"
+title: "Host your own Software Freedom Day"
+description: "How to run your own Software Freedom Day catch-up on Saturday 19 September 2026. Pick a room, prepare some USB sticks, tell people it's on. A catch-up can be six people and a kettle."
+---
+
+{#
+  IMAGE SLOTS
+  Anywhere you see a <div class="ph"> ... </div>, that is a placeholder.
+  To use a real photo, delete the whole .ph block and put an <img> in
+  its place, keeping the surrounding .st--photo sticker:
+
+      <div class="st st--photo a3 col-4">
+        <img src="/assets/images/photos/your-photo.jpg" alt="Describe the photo">
+      </div>
+
+  Add a caption by wrapping it in <figure> ... <figcaption>.
+  Photos live in src/assets/images/photos/.
+#}
+
+<div class="sheet">
+
+  {# Way back out, before anything else on the page #}
+  <div class="backbar">
+    <a class="btn btn--back" href="/">Back to the home page</a>
+  </div>
+
+  {# ===================== COMPACT HERO (yellow, not charcoal) ===================== #}
+  <div class="grid">
+    <div class="st st--yellow st--peel a2 hero hero--compact col-12">
+      <div>
+        <span class="lab">Guide</span>
+        <h1>Host your own one</h1>
+        <p>You do not need permission, a budget, or a venue with a stage. A Software Freedom Day catch-up can be six people and a kettle.</p>
+      </div>
+      <div class="facts">
+        <span class="fact fact--solid">{{ site.dateShort }} 2026</span>
+        <span class="fact">Free to attend</span>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== WHAT HAPPENS + PHOTO ===================== #}
+  <div class="grid">
+    <div class="st st--dark st--peel a4 col-7">
+      <span class="lab">No required format</span>
+      <h2>What actually happens on the day</h2>
+      <div class="prose">
+        <p style="opacity:.92">Most catch-ups are some mix of these, and picking just one is plenty for a first year.</p>
+        <ul style="margin-bottom:0;opacity:.92">
+          <li><strong>An install fest.</strong> People bring the laptop they already own and leave with free software on it.</li>
+          <li><strong>An open exchange.</strong> A conversation about open source software, pitched at whoever turns up.</li>
+          <li><strong>Lightning talks.</strong> A few minutes each, from anyone in the room who wants to.</li>
+          <li><strong>A demo table.</strong> Hardware, retro machines, a 3D printer, whatever you have.</li>
+        </ul>
+      </div>
+    </div>
+
+    {# IMAGE SLOTS #}
+    <div class="stack col-5">
+      <div class="st st--photo a1">
+        <img src="/assets/images/photos/balloon.jpg"
+             alt="A red balloon printed with the Software Freedom Day logo."
+             width="465" height="300" loading="lazy" decoding="async">
+      </div>
+
+      <div class="st st--photo a5">
+        <img src="/assets/images/photos/stall-volunteers.jpg"
+             alt="Volunteers in Software Freedom Day t-shirts running a stall in a shopping centre, with a large Tux penguin mascot beside them."
+             width="1600" height="752" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  {# ===================== THE STEPS ===================== #}
+  <div class="grid">
+    <div class="st st--peel a3 col-12">
+      <span class="lab">Six steps</span>
+      <h2 style="font-family:Fredoka;font-weight:600;font-size:clamp(24px,3vw,31px);letter-spacing:-.015em;margin-bottom:22px">Putting one together</h2>
+
+      <ol class="steps">
+        <li>
+          <h3>Find a room</h3>
+          <p>A library meeting room, a hackerspace, a co-working space, a community hall, a cafe with a back table. Ask about power outlets and whether the wifi will cope with people downloading images. Free or donated space keeps the day free for attendees.</p>
+        </li>
+        <li>
+          <h3>Pick your hours</h3>
+          <p>Anything from two hours to a full day. Drop-in works better than a fixed program, because people arrive when they can. Say clearly when someone should turn up if they want help installing something.</p>
+        </li>
+        <li>
+          <h3>Prepare some USB sticks</h3>
+          <p>Load a few with a beginner-friendly GNU/Linux distribution, and bring blank ones so people can take an installer home. Ask attendees to back up anything they care about <em>before</em> they arrive, and be ready to say "let's not do this today" if a machine holds someone's only copy of something.</p>
+        </li>
+        <li>
+          <h3>Round up a couple of helpers</h3>
+          <p>Two or three people who can sit with someone and answer questions is enough. They do not need to be experts, only patient.</p>
+        </li>
+        <li>
+          <h3>Tell people it's on</h3>
+          <p>Local Linux user groups, your library's noticeboard, a community calendar, the nearest university, a post in whichever local forum people actually read. Say plainly that beginners are welcome, because otherwise they will assume they are not.</p>
+        </li>
+        <li>
+          <h3>Add your location to this site</h3>
+          <p>So people can find you. Details are further down this page.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  {# ===================== TWO PHOTOS + PULL QUOTE ===================== #}
+  <div class="grid">
+    {# IMAGE SLOT #}
+    <div class="st st--photo a3 col-7">
+      <img src="/assets/images/photos/group-2025.jpg"
+           alt="Everyone who came to Software Freedom Day 2025 standing together, including two children holding small robots."
+           width="1500" height="630" loading="lazy" decoding="async">
+    </div>
+
+    <div class="st st--green st--peel st--start a2 col-5">
+      <span class="lab">Worth remembering</span>
+      <p class="punch">Small is not a lesser version.</p>
+      <p class="st__body" style="margin-top:10px">A quiet room where four people got their laptops working is a better day than a big room where nobody spoke to each other.</p>
+    </div>
+  </div>
+
+  {# ===================== POSTER ===================== #}
+  <div class="grid">
+    <a class="st st--photo st--start a4 col-5 poster-link" href="/poster/">
+      <img src="/assets/images/poster-preview.png"
+           alt="Preview of the printable poster, with blank boxes to write in the date, time and place, and tick boxes for what is on."
+           width="794" height="1123" loading="lazy" decoding="async">
+    </a>
+
+    <div class="st st--dark st--peel st--start a2 col-7">
+      <span class="lab">Print it out</span>
+      <h2>A poster you fill in by hand</h2>
+      <div class="prose">
+        <p style="opacity:.92">Nothing on it is specific to one event. Print one, write your details in the gaps with a marker, then photocopy as many as you need.</p>
+        <p style="opacity:.92">Print one A4 for a noticeboard, or two A5 on a sheet for shop windows and handing out. Choose colour to match the site, or black and white, which survives a photocopier and costs almost nothing to run off.</p>
+        <p style="margin-bottom:0;opacity:.92">A QR code back to this site is already on it, and the whole thing is a single file you can fork and reword.</p>
+      </div>
+      <div class="acts">
+        <a class="btn btn--primary" href="/poster/">Open the poster to print</a>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== ADD YOUR LOCATION (orange) ===================== #}
+  <div class="grid">
+    <div class="st st--orange st--peel a1 col-12">
+      <span class="lab">One file, one pull request</span>
+      <h2>Add your location to this site</h2>
+      <div class="prose">
+        <p style="opacity:.95">Every location on the home page comes from a single file, <code>src/_data/events.json</code>. Adding yours is one entry in that list.</p>
+        <p style="opacity:.95">Copy the block below, change the details to yours, and add it to the list. The <code>activities</code> are whatever you have decided to run, so put your own in.</p>
+      </div>
+
+      <pre><code>{
+  "id": "your-city-venue",
+  "status": "confirmed",
+  "city": "Your City",
+  "region": "Australia",
+  "venue": "The Venue",
+  "time": "1pm to 5pm",
+  "summary": "One line about your catch-up.",
+  "address": "12 Example St, Your City",
+  "map": "https://maps.example.com/...",
+  "logo": {
+    "src": "/assets/images/logos/hosts/your-venue.svg",
+    "alt": "Your Venue",
+    "url": "https://yourvenue.example"
+  },
+  "volunteer": { "open": true },
+  "activities": [
+    {
+      "when": "All day",
+      "title": "Install fest",
+      "description": "What people should expect."
+    }
+  ],
+  "actions": [
+    { "label": "Register", "url": "https://...", "style": "primary" }
+  ]
+}</code></pre>
+
+      <div class="prose">
+        <p style="opacity:.95">Only <code>id</code>, <code>city</code> and <code>venue</code> are really needed. Everything else is optional and simply will not render if you leave it out. If a pull request is not your thing, email the details instead and we will add them for you.</p>
+        <p style="opacity:.95"><strong>Formatting.</strong> Activity descriptions accept a little HTML, so <code>&lt;strong&gt;</code> around a few important words is fine. Use it sparingly, two or three phrases at most, or nothing stands out.</p>
+        <p style="opacity:.95"><strong>Volunteers.</strong> Set <code>"volunteer": { "open": true }</code> and a Volunteer button appears on your location, sending people to a short form that arrives with the organisers. Leave it out if you would rather sort your own helpers.</p>
+        <p style="margin-bottom:0;opacity:.95"><strong>Venue logo.</strong> Optional. Put the file in <code>src/assets/images/logos/hosts/</code> in the same pull request. SVG or PNG both work, and SVG stays sharp on every screen. For an SVG, keep the <code>viewBox</code> and convert any text to outlines, otherwise it renders in the wrong font. Leave out <code>url</code> and the logo shows without linking anywhere.</p>
+      </div>
+
+      <div class="acts">
+        <a class="btn btn--primary" href="{{ site.submitLocation.url }}">{{ site.submitLocation.linkText }}</a>
+        <a class="btn btn--outline" href="mailto:{{ site.contact.email }}">Email us the details</a>
+      </div>
+    </div>
+  </div>
+
+  {# ===================== ON THE DAY / CONDUCT ===================== #}
+  <div class="grid">
+    <div class="st st--blank a4 col-5">
+      <span class="lab">On the day</span>
+      <div class="prose">
+        <ul style="margin:8px 0 0 22px">
+          <li>Put a sign on the door. People do get lost.</li>
+          <li>Greet everyone who walks in, especially anyone hovering.</li>
+          <li>Have a table for people who just want to watch.</li>
+          <li>Take a photo or two, with people's permission.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="st st--dark st--peel a3 col-7">
+      <span class="lab">Look after people</span>
+      <h3>Everyone follows the same code of conduct</h3>
+      <p class="st__body" style="max-width:56ch">Read it before the day and make sure your helpers know who to raise a problem with. It applies to every event under the Software Freedom Day banner, including yours.</p>
+      {# Code of conduct page is still being written. The button appears
+         automatically once site.contact.codeOfConductUrl is filled in. #}
+      {% if site.contact.codeOfConductUrl %}
+        <div class="acts">
+          <a class="btn btn--outline" href="{{ site.contact.codeOfConductUrl }}">{{ site.contact.codeOfConductText }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ===================== ASK ===================== #}
+  <div class="grid">
+    <div class="st st--yellow st--peel a5 col-12">
+      <h3>Still not sure?</h3>
+      <p class="st__body" style="max-width:64ch">Email us and ask. Somebody who has run one before will talk it through with you, and would much rather do that than have you not run one at all.</p>
+      <div class="acts">
+        <a class="btn btn--primary" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+      </div>
+    </div>
+  </div>
+
+  {% include "partials/back-home.njk" %}
+
+</div>

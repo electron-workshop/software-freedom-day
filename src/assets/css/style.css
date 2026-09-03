@@ -1,250 +1,1105 @@
-/* =========================
-   BASE
-   ========================= */
+/* =============================================================
+   Software Freedom Day
+   Sticker sheet design system
+   ============================================================= */
+
+:root {
+  /* Backing paper */
+  --backing:    #DEDACF;
+  --backing-2:  #D3CEC1;
+  --backing-3:  #A8A296;
+
+  /* Ink */
+  --char:       #2A2C2E;
+  --char-lt:    #54585C;
+  --muted:      #7E786C;
+  --muted-2:    #6F6A5E;
+
+  /* Brand */
+  --green:      #2E8B57;
+  --green-dk:   #257146;
+  --orange:     #E4662B;
+  --yellow:     #F5C233;
+  --white:      #FCFBF7;
+
+  --radius:     20px;
+  --measure:    46ch;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body,
+h1, h2, h3, h4, p, ul, ol, li, figure, blockquote { margin: 0; padding: 0; }
+
 body {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  overflow-x: hidden;
+  background-color: var(--backing);
+  background-image:
+    linear-gradient(var(--backing-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--backing-2) 1px, transparent 1px);
+  background-size: 26px 26px;
+  color: var(--char);
+  font-family: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  padding: 0 20px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =========================
-   HERO
-   ========================= */
-.hero {
-  /* Brand gradient; layout handled in template via Bootstrap utilities */
-  background: linear-gradient(135deg, #99ce65 0%, #f7e132 100%);
+.sheet { max-width: 1020px; margin: 0 auto; }
+
+a { color: inherit; }
+
+img { max-width: 100%; height: auto; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 20px;
+  top: 12px;
+  z-index: 50;
+  background: var(--char);
+  color: var(--yellow);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+}
+
+/* =============================================================
+   Masthead / footer rails on the backing paper
+   ============================================================= */
+
+.rail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px 22px;
+  flex-wrap: wrap;
+  font-family: Fredoka, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8B8578;
+}
+
+.rail--top { padding: 20px 0 16px; }
+.rail--bottom {
+  padding: 26px 4px 60px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  align-items: flex-start;
+}
+
+.rail nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+
+/* -------------------------------------------------------------
+   Menu
+   One <details> serves both layouts. Wide screens hide the button
+   and force the panel open, so it behaves as a plain row of links.
+   ------------------------------------------------------------- */
+
+/* Hidden until the script marks the menu ready, so with no JavaScript
+   the links stay visible as an ordinary list. */
+.menu__btn { display: none; }
+
+/* -------------------------------------------------------------
+   Hamburger
+   Collapsed at every width, not only on small screens, so the
+   masthead reads the same everywhere.
+   ------------------------------------------------------------- */
+
+.menu { position: relative; }
+
+/* Collapsed only when the script is running. Without it the panel keeps
+   the ordinary layout and every link stays reachable. */
+.menu.is-ready > .menu__panel { display: none; }
+
+.menu.is-ready .menu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px 12px 13px;
+  min-height: 48px;
+  background: var(--white);
+  border: 3px solid var(--char);
+  border-radius: 999px;
+  color: var(--char);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  list-style: none;
+}
+/* The default disclosure triangle, removed in both dialects. */
+.menu__btn::-webkit-details-marker { display: none; }
+.menu__btn::marker { content: ""; }
+.menu__btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
+
+/* Three bars drawn with a border and two shadows, so there is no extra
+   markup and no icon font to load. */
+.menu__bars {
+  width: 20px;
+  height: 2px;
+  background: var(--char);
+  box-shadow: 0 -6px 0 var(--char), 0 6px 0 var(--char);
+}
+.menu[data-open] .menu__bars {
+  box-shadow: none;
+  transform: rotate(45deg);
   position: relative;
-  overflow: hidden;
 }
-
-.hero::before {
-  /* Subtle animated grid overlay */
-  content: '';
+.menu[data-open] .menu__bars::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  animation: float 20s ease-in-out infinite;
+  background: var(--char);
+  transform: rotate(90deg);
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
+/* The panel sits over the page rather than pushing it down, so opening
+   the menu does not shove the hero out of view. */
+.menu[data-open] > .menu__panel {
+  display: flex;
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 232px;
+  flex-direction: column;
+  /* The row layout centres its items, which in a column means each link
+     shrinks to its own text width. Stretch makes them full width rows. */
+  align-items: stretch;
+  gap: 0;
+  padding: 8px;
+  background: var(--white);
+  border: 3px solid var(--char);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+.menu[data-open] > .menu__panel a {
+  display: flex;
+  align-items: center;
+  padding: 15px 16px;
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--char);
+}
+.menu[data-open] > .menu__panel a + a { border-top: 2px solid var(--backing-2); }
+.menu[data-open] > .menu__panel a:hover { background: var(--backing); text-decoration: none; }
+
+.rail a { text-decoration: none; }
+.rail nav a { display: inline-flex; align-items: center; gap: 6px; }
+.rail a:hover { color: var(--char); text-decoration: underline; }
+.rail--bottom a { color: var(--char); }
+
+/* Organiser logos. They sit straight on the backing paper rather than in
+   white boxes, because every one of them is dark on transparent. */
+.orgs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 34px 4px 4px;
+  border-top: 2px dashed var(--backing-3);
+  margin-top: 30px;
+}
+.orgs__lab {
+  font-family: Fredoka, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.orgs__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 38px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.orgs__item { display: inline-flex; align-items: center; }
+.orgs__item img {
+  display: block;
+  height: 44px;
+  width: auto;
+  /* Enough room for a wide lockup without letting it dwarf the others. */
+  max-width: 190px;
+  object-fit: contain;
+}
+a.orgs__item:hover img { opacity: 0.75; }
+a.orgs__item:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 6px;
+  border-radius: 6px;
 }
 
-.hero-logo img {
-  max-width: 100%;
-  height: auto;
-  animation: slideInDown 1s ease-out;
+/* The footer is two columns: what this is on the left, how to reach us on
+   the right. Each stacks its own lines. */
+.foot-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.foot-col--contact { align-items: flex-start; }
+
+/* Sits on the right of the rail, so it reads to that edge. */
+.foot-col--values { align-items: flex-end; text-align: right; }
+
+.foot-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.3;
+}
+
+/* Icons inherit the text colour so the mail and GitHub marks sit at the
+   same weight as the words beside them. */
+.foot-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: currentColor;
+}
+
+.foot-line--link {
+  color: var(--char);
+  font-weight: 600;
+}
+.foot-line--link:hover { text-decoration: underline; }
+.foot-line--link:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Brand: the logo on its own, linking home. The artwork already reads
+   "Software Freedom Day", so no separate wording sits beside it. */
+.brand { display: inline-flex; align-items: center; }
+.brand__logo { display: block; height: 46px; width: auto; }
+.brand:focus-visible { outline: 3px solid var(--char); outline-offset: 4px; }
+
+/* The date sits between the logo and the nav. Charcoal rather than the
+   rail grey, so it reads as information instead of navigation. */
+.rail__date { color: var(--char); font-weight: 600; }
+
+/* External link marker */
+.ext {
+  width: 0.85em;
+  height: 0.85em;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =============================================================
+   Sticker
+   ============================================================= */
+
+.st {
+  position: relative;
+  background: var(--white);
+  border: 5px solid var(--white);
+  border-radius: var(--radius);
+  padding: 30px 32px;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.16),
+    0 12px 22px rgba(0, 0, 0, 0.13);
+}
+
+.st--green  { background: var(--green);  color: var(--white); }
+.st--orange { background: var(--orange); color: var(--white); }
+.st--yellow { background: var(--yellow); color: var(--char); }
+.st--dark   { background: var(--char);   color: var(--white); }
+
+.st--circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 26px;
+  /* Held in from the full column width so it reads as a badge dropped on the
+     sheet rather than another block in the stack. */
+  max-width: 250px;
+  justify-self: center;
+}
+
+/* Peel corner */
+.st--peel::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, transparent 0 50%, rgba(0, 0, 0, 0.13) 50%);
+  border-bottom-right-radius: var(--radius);
+}
+
+/* Blank / die-cut outline sticker */
+.st--blank {
+  background: transparent;
+  border: 3px dashed var(--backing-3);
+  box-shadow: none;
+  padding: 30px;
+}
+.st--blank h2,
+.st--blank h3 { color: var(--muted-2); }
+.st--blank .st__body { color: var(--muted); }
+
+/* -------------------------------------------------------------
+   Photo stickers
+   Drop an <img> straight in and it fills the sticker. Leave the
+   .ph placeholder in place until there is a real photo.
+   ------------------------------------------------------------- */
+
+/* Opts a sticker out of stretching to match a taller one beside it, for
+   when the row would otherwise leave a block of empty colour. */
+.st--start { align-self: start; }
+
+/* Photos keep their own shape rather than stretching to match whatever
+   sticker sits beside them, so nothing gets cropped by accident. */
+.st--photo { padding: 0; overflow: hidden; align-self: start; }
+
+.st--photo > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.st--photo figure { margin: 0; }
+.st--photo figcaption {
+  padding: 12px 16px 14px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.ph {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 5px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  color: var(--muted);
+  background-color: var(--backing);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.045) 0 10px,
+    transparent 10px 20px
+  );
+  box-shadow: inset 0 0 0 3px var(--backing-3);
+}
+
+.ph--tall { aspect-ratio: 3 / 4; }
+.ph--wide { aspect-ratio: 16 / 9; }
+
+.ph__icon {
+  font-family: Fredoka, sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  opacity: 0.55;
+}
+.ph__label {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ph__hint {
+  font-size: 14.5px;
+  max-width: 26ch;
+  opacity: 0.9;
+}
+
+/* Hand-placed angles */
+.a1 { transform: rotate(-1.4deg); }
+.a2 { transform: rotate(1.1deg); }
+.a3 { transform: rotate(-0.7deg); }
+.a4 { transform: rotate(1.8deg); }
+.a5 { transform: rotate(-2.1deg); }
+
+/* =============================================================
+   Grid
+   ============================================================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+.grid + .grid { margin-top: 20px; }
+
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-12 { grid-column: span 12; }
+
+/* A column of stickers. Width comes from a col-* class, and
+   align-content keeps stickers at their natural height instead of
+   stretching to fill the row. */
+.stack {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+/* =============================================================
+   Typography
+   ============================================================= */
+
+h1, h2, h3, h4, .punch, .mega, .btn, .lab {
+  font-family: Fredoka, system-ui, -apple-system, sans-serif;
 }
 
 .hero h1 {
-  /* Size & margins handled in index.njk via Bootstrap classes */
-  font-weight: 900;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  animation: slideInDown 1s ease-out;
+  font-weight: 700;
+  font-size: clamp(40px, 7vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 14px;
 }
 
-.hero .subtitle {
-  /* Size & margins handled in index.njk via Bootstrap classes */
-  opacity: 0.9;
+.hero p { font-size: 19.5px; max-width: 42ch; opacity: 0.94; }
+
+/* Compact hero: a short wide band rather than a tall block, so the
+   guide page does not open the same way the home page does. */
+.hero--compact {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px 36px;
+  align-items: center;
+  padding: 26px 32px;
+}
+.hero--compact h1 {
+  font-size: clamp(29px, 4.2vw, 46px);
+  line-height: 1;
+  margin-bottom: 7px;
+}
+.hero--compact p { font-size: 17.5px; max-width: 54ch; }
+
+.facts { display: flex; gap: 9px; flex-wrap: wrap; }
+.fact {
+  font-family: Fredoka, sans-serif;
   font-weight: 600;
-  animation: slideInUp 1s ease-out 0.2s both;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 9px 15px;
+  border: 2.5px solid currentColor;
+  border-radius: 999px;
+}
+.fact--solid {
+  background: var(--char);
+  color: var(--yellow);
+  border-color: var(--char);
 }
 
-.hero .date-info {
-  /* Size & margins handled in index.njk via Bootstrap classes */
-  font-weight: 500;
-  animation: slideInUp 1s ease-out 0.4s both;
+.lab {
+  display: block;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  opacity: 0.78;
+  margin-bottom: 9px;
 }
 
-@keyframes slideInDown {
-  from { transform: translateY(-100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.st h2 {
+  font-weight: 600;
+  font-size: clamp(24px, 3.2vw, 33px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
 }
 
-@keyframes slideInUp {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.st h3 {
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
 }
 
-/* CTA button visual (sizing handled by .btn-lg in template) */
-.cta-button {
+.st__body { opacity: 0.9; max-width: var(--measure); }
+
+.punch {
+  font-weight: 700;
+  font-size: clamp(23px, 2.9vw, 30px);
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+}
+
+.mega {
+  font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =============================================================
+   Buttons
+   ============================================================= */
+
+.acts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn {
   display: inline-block;
-  background: linear-gradient(45deg, #2c3e50, #34495e);
-  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
   text-decoration: none;
-  border-radius: 50px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  animation: slideInUp 1s ease-out 0.6s both, pulse 2s infinite 2s;
+  padding: 13px 22px;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #34495e, #2c3e50);
+.btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
+
+/* Buttons that leave the site and open a new tab */
+.btn--ext { display: inline-flex; align-items: center; gap: 9px; }
+
+.btn--primary { background: var(--char); color: var(--yellow); }
+.btn--primary:hover { background: #000; }
+
+/* A charcoal button on a charcoal sticker would vanish, so flip it. */
+.st--dark .btn--primary { background: var(--yellow); color: var(--char); }
+.st--dark .btn--primary:hover { background: #FFD65C; }
+
+.btn--green { background: var(--green); color: #fff; }
+.btn--green:hover { background: var(--green-dk); }
+
+.btn--outline {
+  background: var(--white);
+  color: var(--char);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.btn--outline:hover { border-color: currentColor; }
+
+/* A button whose link is not ready yet. Rendered as a span, so there is
+   nothing to click and nothing to tab to. Says why rather than just
+   looking broken. */
+.btn--off {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  background: transparent;
+  color: var(--muted-2);
+  border-color: var(--backing-3);
+  border-style: dashed;
+  cursor: default;
+}
+.btn__soon {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+/* On the yellow action bar the paper grey would disappear, so darken it. */
+.st--yellow .btn--off {
+  color: rgba(42, 44, 46, 0.62);
+  border-color: rgba(42, 44, 46, 0.28);
 }
 
-/* @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(44, 62, 80, 0.7); }
-  70% { box-shadow: 0 0 0 20px rgba(44, 62, 80, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(44, 62, 80, 0); }
-} */
+/* -------------------------------------------------------------
+   Back to home
+   Deliberately large, plainly worded and high contrast, so it is
+   obvious to someone who does not use websites much.
+   ------------------------------------------------------------- */
 
-/* Floating particles (used by JS) */
-.particle {
+.backbar { padding: 6px 0 14px; }
+
+.btn--back {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 18px;
+  padding: 15px 26px;
+  min-height: 54px;
+  background: var(--white);
+  color: var(--char);
+  border-color: var(--char);
+}
+.btn--back::before {
+  content: "\2190";
+  font-size: 23px;
+  line-height: 1;
+}
+.btn--back:hover {
+  background: var(--char);
+  color: var(--white);
+  border-color: var(--char);
+}
+
+.backhome { text-align: center; }
+.backhome p {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.backhome .btn--back { font-size: 19px; padding: 17px 30px; }
+
+/* Outline buttons sitting on a coloured sticker */
+.st--green .btn--outline,
+.st--orange .btn--outline,
+.st--dark .btn--outline {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+}
+.st--green .btn--outline:hover,
+.st--orange .btn--outline:hover,
+.st--dark .btn--outline:hover {
+  background: var(--white);
+  color: var(--char);
+  border-color: var(--white);
+}
+
+/* =============================================================
+   Location sections
+   ============================================================= */
+
+.locs-hd {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 52px 0 22px;
+}
+.locs-hd h2 {
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.locs-hd .rule { flex: 1; height: 0; border-top: 3px dashed var(--backing-3); }
+.locs-hd .count {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.loc {
+  position: relative;
+  border: 3px dashed var(--backing-3);
+  border-radius: 24px;
+  padding: 34px 26px 28px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.loc--confirmed { background: rgba(255, 255, 255, 0.3); }
+
+.loc__tab {
   position: absolute;
-  background: rgba(44, 62, 80, 0.1);
+  top: -15px;
+  left: 26px;
+  background: var(--char);
+  color: var(--yellow);
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+.loc--open .loc__tab { background: var(--backing-3); color: #3B372F; }
+
+.loc__note {
+  display: block;
+  font-family: Fredoka, sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 22px 0 14px;
+}
+
+.loc__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 26px;
+  align-items: center;
+}
+.loc__when { text-align: right; }
+.loc__when .d {
+  font-family: Fredoka, sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+.loc__when .t {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  opacity: 0.85;
+  margin-top: 3px;
+}
+.st--blank .loc__when .d { color: var(--muted-2); }
+.st--blank .loc__when .t { color: var(--muted); }
+
+.loc__address {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 16px;
+  opacity: 0.92;
+}
+
+/* Venue logo chip. Most venue marks are dark on white, so a white box is
+   both the design and the thing that stops them vanishing on the green. */
+.loc__host {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.loc__host-lab {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.loc__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+}
+/* Caps both dimensions, so a tall square mark and a long wordmark both sit
+   at a sensible size without the chip changing shape much. */
+.loc__logo img {
+  display: block;
+  height: 34px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+}
+a.loc__logo:hover { box-shadow: 0 3px 6px rgba(0, 0, 0, 0.24); }
+a.loc__logo:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+}
+
+/* =============================================================
+   Prose (guide page)
+   ============================================================= */
+
+.prose { max-width: 68ch; }
+.prose h2 {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 31px);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  margin: 34px 0 10px;
+}
+.prose h3 {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  margin: 24px 0 6px;
+}
+.prose p { margin-bottom: 14px; }
+.prose ul, .prose ol { margin: 0 0 16px 22px; }
+.prose li { margin-bottom: 7px; }
+.prose a { font-weight: 600; }
+
+.steps { counter-reset: step; list-style: none; margin: 0; display: grid; gap: 20px; }
+.steps > li { counter-increment: step; position: relative; padding-left: 58px; }
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-content: center;
+  background: var(--yellow);
+  color: var(--char);
   border-radius: 50%;
-  animation: particle-float 15s infinite linear;
+  font-family: Fredoka, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
 }
 
-@keyframes particle-float {
-  from { transform: translateY(100vh) rotate(0deg); }
-  to { transform: translateY(-100px) rotate(360deg); }
+code {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.92em;
+  background: rgba(0, 0, 0, 0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
-
-/* =========================
-   SECTION TITLES
-   ========================= */
-.section-title {
-  /* Font-size/margins handled in template */
-  color: #2c3e50;
-  position: relative;
+pre {
+  background: var(--char);
+  color: var(--white);
+  padding: 20px 22px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin-bottom: 16px;
 }
+pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
 
-.section-title::after {
-  content: '';
+/* The poster preview is a link, so it lifts a little on hover to say so.
+   Buttons are the only other thing on the site that moves. */
+.poster-link { display: block; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.poster-link:hover {
+  transform: translateY(-3px) rotate(0deg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18), 0 18px 30px rgba(0, 0, 0, 0.16);
+}
+.poster-link:focus-visible { outline: 3px solid var(--char); outline-offset: 4px; }
+
+/* =============================================================
+   Form
+   Built for someone filling it in on a phone with one thumb, so the
+   choices are whole tappable rows rather than small round targets.
+   ============================================================= */
+
+.frm { display: grid; gap: 26px; }
+
+/* The bot decoy. Kept out of the layout and out of the tab order without
+   display:none, which some bots check for. */
+.hp {
   position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(45deg, #99ce65, #f7e132);
-  border-radius: 2px;
-}
-
-/* =========================
-   ABOUT CARDS
-   ========================= */
-.about-card {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
 }
 
-.about-card::before {
-  content: '';
+.frm__set { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.frm__legend {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 23px);
+  letter-spacing: -0.01em;
+  padding: 0;
+  margin-bottom: 2px;
+}
+.frm__hint {
+  font-size: 15.5px;
+  color: var(--muted-2);
+  margin-top: -6px;
+  margin-bottom: 4px;
+}
+
+/* Choice rows */
+.picks--inline { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.pick {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  min-height: 56px;
+  border: 3px solid var(--backing-2);
+  border-radius: 16px;
+  background: var(--white);
+  cursor: pointer;
+}
+.pick:hover { border-color: var(--backing-3); }
+.pick--sm { min-height: 52px; padding: 13px 18px; align-items: center; flex: 0 0 auto; }
+
+/* The real control stays in the tab order and drives the visible box. */
+.pick input {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(45deg, #99ce65, #f7e132);
+  opacity: 0;
+  width: 1px;
+  height: 1px;
 }
 
-.about-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+.pick__box {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  border: 3px solid var(--char);
+  border-radius: 8px;
+  background: var(--white);
+  position: relative;
+}
+.pick--sm .pick__box { margin-top: 0; }
+
+.pick input:checked + .pick__box { background: var(--green); border-color: var(--green); }
+.pick input:checked + .pick__box::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid var(--white);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.pick:has(input:checked) { border-color: var(--green); }
+.pick:has(input:focus-visible) { outline: 3px solid var(--char); outline-offset: 3px; }
+
+.pick__text { display: grid; gap: 3px; line-height: 1.35; }
+.pick__text strong { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 17px; }
+.pick__sub { font-size: 15px; color: var(--muted-2); }
+
+/* Text inputs */
+.frm__row { display: grid; gap: 8px; }
+.frm__label {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 23px);
+  letter-spacing: -0.01em;
+}
+.frm__opt {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.frm__input {
+  font: inherit;
+  color: var(--char);
+  background: var(--white);
+  border: 3px solid var(--backing-2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  min-height: 56px;
+  width: 100%;
+  max-width: 34rem;
+}
+textarea.frm__input { max-width: 44rem; resize: vertical; }
+.frm__input:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 2px;
+  border-color: var(--char);
 }
 
-.about-card h3 {
-  color: #2c3e50;
+.frm__end { display: grid; gap: 14px; justify-items: start; }
+.btn--big { font-size: 18px; padding: 16px 30px; min-height: 56px; }
+.frm__note { font-size: 15.5px; color: var(--muted-2); max-width: 52ch; }
+
+/* =============================================================
+   Responsive
+   ============================================================= */
+
+@media (max-width: 880px) {
+  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9 { grid-column: span 12; }
+  /* 58px on a roomy handset, easing down on narrow ones so the logo and
+     the menu button always share a row rather than costing two. */
+  .brand__logo { height: clamp(46px, 13.5vw, 58px); }
+
+  /* The bigger logo leaves less room, so the rail tightens up to keep the
+     logo and the menu button on one row. */
+  .rail--top { gap: 10px 12px; padding: 14px 0 12px; }
+  .hero--compact { grid-template-columns: 1fr; }
+  .st--circle {
+    aspect-ratio: auto;
+    border-radius: var(--radius);
+    text-align: left;
+    place-content: start;
+    max-width: none;
+    justify-self: stretch;
+  }
+  .loc { padding: 32px 16px 22px; }
+  .loc__head { grid-template-columns: 1fr; }
+  .loc__when { text-align: left; }
+  .locs-hd { margin-top: 40px; }
+  .locs-hd h2 { font-size: 25px; white-space: normal; }
+
+  /* Touch targets on the links that are not in the menu. */
+  .rail--bottom a { padding: 8px 0; }
+  .loc__address { padding: 6px 0; }
+
 }
 
-/* =========================
-   SCHEDULE
-   ========================= */
-.schedule {
-  /* Visual background only; spacing via Bootstrap */
-  background: #2c3e50;
-  color: #fff;
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .st:not(.st--photo) { padding: 24px 22px; }
+  .rail--top { letter-spacing: 0.12em; }
+
+  /* The wordmark is two lines by design. Below this width the 40px floor
+     pushed "Day" onto a third line on its own, so the size tracks the
+     viewport instead of stopping. */
+  .hero h1 { font-size: clamp(30px, 10vw, 44px); }
+
+  /* The date is repeated as the first line of the hero directly below, so
+     in the masthead it is duplication costing a whole row. */
+  .rail--top .rail__date { display: none; }
+
+  /* Tighter tracking so the three links sit together instead of one
+     breaking off on its own line. */
+  .rail--top nav {
+    gap: 0 14px;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+
+  /* The footer columns are stacked by now, so the second one is no longer
+     on the right and should not still be aligned to it. */
+  .foot-col--values { align-items: flex-start; text-align: left; }
 }
 
-.schedule-item {
-  /* Card styling; spacing via Bootstrap p-* utilities in template */
-  background: rgba(255, 255, 255, 0.1);
-  border-left: 4px solid #99ce65;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
 }
 
-.schedule-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(10px);
-  border-left-color: #f7e132;
+@media print {
+  body { background: #fff; }
+  .st { box-shadow: none; border-color: #ccc; transform: none !important; }
 }
-
-.schedule-item.break-item {
-  border-left-color: #f7e132;
-  background: rgba(247, 225, 50, 0.1);
-}
-
-.schedule-time {
-  /* Font-size handled in template if needed */
-  font-weight: bold;
-  color: #99ce65;
-}
-
-.schedule-title {
-  /* Font-size/margins handled in template */
-  color: inherit;
-}
-
-/* =========================
-   PARTNERS
-   ========================= */
-.partner-logo {
-  text-align: center;
-  border-radius: 15px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  background: #f8f9fa;
-  border: 2px solid transparent;
-}
-
-.partner-logo:hover {
-  transform: scale(1.05);
-  border-color: #99ce65;
-}
-
-.partner-logo.sponsor {
-  background: linear-gradient(135deg, #99ce65, #f7e132);
-  color: #2c3e50;
-  font-weight: bold;
-}
-
-/* =========================
-   FOOTER
-   ========================= */
-.footer {
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-  color: #fff;
-  text-align: center;
-}
-
-.footer-section h3 {
-  color: #99ce65;
-}
-
-.footer-section a {
-  color: #bdc3c7;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-section a:hover {
-  color: #f7e132;
-}
-
-/* =========================
-   RESPONSIVE TWEAKS (removed font-size edits)
-   ========================= */
-/* No font-size overrides here; typography scales come from Bootstrap utilities */
-
-
-.multiline { white-space: pre-line; }
