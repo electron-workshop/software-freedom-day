@@ -898,6 +898,15 @@ pre {
 }
 pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
 
+/* The poster preview is a link, so it lifts a little on hover to say so.
+   Buttons are the only other thing on the site that moves. */
+.poster-link { display: block; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.poster-link:hover {
+  transform: translateY(-3px) rotate(0deg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18), 0 18px 30px rgba(0, 0, 0, 0.16);
+}
+.poster-link:focus-visible { outline: 3px solid var(--char); outline-offset: 4px; }
+
 /* =============================================================
    Form
    Built for someone filling it in on a phone with one thumb, so the

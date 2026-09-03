@@ -1,0 +1,453 @@
+---
+layout: base.njk
+permalink: "/poster/"
+title: "Printable poster template"
+description: "A blank Software Freedom Day poster to print, fill in by hand and photocopy. A4 or two A5, in colour or black and white."
+---
+
+{#
+  POSTER TEMPLATE
+
+  Everything the poster needs lives in this one file, styles included, so a
+  host can fork the repository, edit this page and print their own.
+
+  Two styles share one set of markup. Black and white is the one to
+  photocopy. Colour matches the site, and is built so it still reads if it
+  comes out of a mono printer, because somebody will always print it that
+  way by accident.
+#}
+
+<style>
+  /* ---------------------------------------------------------------
+     Sheet geometry
+     A poster is sized entirely from --u, so A5 is the same markup
+     with one number changed rather than a second layout.
+     --------------------------------------------------------------- */
+
+  .poster {
+    --u: 4.1mm;
+    width: 210mm;
+    height: 297mm;
+    padding: calc(var(--u) * 3.2);
+    background: #fff;
+    color: #000;
+    font-family: 'Nunito Sans', system-ui, sans-serif;
+    font-size: calc(var(--u) * 1.05);
+    line-height: 1.35;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sheet2 .poster { --u: 3.35mm; width: 148.5mm; height: 210mm; padding: calc(var(--u) * 2.4); }
+
+  /* ----------------------------- Top ------------------------------ */
+
+  .p-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: calc(var(--u) * 1.5);
+    margin-bottom: calc(var(--u) * 1.3);
+  }
+  .p-logo { width: calc(var(--u) * 26); height: auto; display: block; margin-top: calc(var(--u) * 0.3); }
+  .p-logo--colour { display: none; }
+
+  .p-free {
+    flex: none;
+    width: calc(var(--u) * 8.4);
+    height: calc(var(--u) * 8.4);
+    border: calc(var(--u) * 0.3) solid #000;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: calc(var(--u) * 0.8);
+    transform: rotate(3deg);
+  }
+  .p-free b {
+    font-family: Fredoka, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--u) * 2.2);
+    line-height: 1;
+    display: block;
+  }
+  .p-free span {
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+    font-size: calc(var(--u) * 0.8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: calc(var(--u) * 0.35);
+  }
+
+  /* ------------------------- Write in here ------------------------ */
+
+  .fill { display: flex; flex-direction: column; flex: 1; gap: calc(var(--u) * 1.1); }
+  .row { display: flex; flex: 1; align-items: stretch; gap: calc(var(--u) * 1); }
+  .row__lab {
+    flex: none;
+    width: calc(var(--u) * 7);
+    display: flex;
+    align-items: center;
+    border: calc(var(--u) * 0.22) solid #000;
+    border-radius: calc(var(--u) * 1);
+    padding: calc(var(--u) * 0.45) calc(var(--u) * 0.85);
+    font-family: Fredoka, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--u) * 1.1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .row__box {
+    flex: 1;
+    border: calc(var(--u) * 0.22) dashed #000;
+    border-radius: calc(var(--u) * 1);
+    min-height: calc(var(--u) * 3.5);
+  }
+  .row__box--tall { min-height: calc(var(--u) * 5); }
+
+  /* ---------------------------- What's on -------------------------- */
+
+  .whats { margin-top: calc(var(--u) * 1.6); margin-bottom: calc(var(--u) * 1.2); }
+  .whats__lab {
+    font-family: Fredoka, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--u) * 1.1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: calc(var(--u) * 0.9);
+  }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--u) * 1); }
+  .card:nth-child(1) { transform: rotate(-0.9deg); }
+  .card:nth-child(2) { transform: rotate(0.7deg); }
+  .card:nth-child(3) { transform: rotate(-0.6deg); }
+
+  .card {
+    position: relative;
+    border: calc(var(--u) * 0.22) solid #000;
+    border-radius: calc(var(--u) * 1.2);
+    padding: calc(var(--u) * 1) calc(var(--u) * 1.1) calc(var(--u) * 1.1);
+  }
+  .card b {
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+    font-size: calc(var(--u) * 1.25);
+    display: block;
+    padding-right: calc(var(--u) * 2.8);
+    margin-bottom: calc(var(--u) * 0.4);
+  }
+  .card p { font-size: calc(var(--u) * 0.95); line-height: 1.32; }
+  .card__tick {
+    position: absolute;
+    top: calc(var(--u) * 1);
+    right: calc(var(--u) * 1);
+    width: calc(var(--u) * 1.9);
+    height: calc(var(--u) * 1.9);
+    border: calc(var(--u) * 0.22) solid #000;
+    border-radius: calc(var(--u) * 0.45);
+    background: #fff;
+  }
+
+  /* ----------------------------- Footer ---------------------------- */
+
+  .p-foot {
+    margin-top: auto;
+    padding-top: calc(var(--u) * 1);
+    border-top: calc(var(--u) * 0.38) solid #000;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--u) * 1.2);
+  }
+  .p-qr { width: calc(var(--u) * 5.2); height: calc(var(--u) * 5.2); flex: none; display: block; }
+  .p-url {
+    font-family: Fredoka, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--u) * 2.5);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .p-tag {
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+    font-size: calc(var(--u) * 1.05);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: calc(var(--u) * 0.35);
+  }
+
+  /* ---------------------------------------------------------------
+     Colour
+     The same poster on the site's backing paper. Every coloured panel
+     keeps white or charcoal text, so a mono printer turns it into
+     readable greys rather than mush.
+     --------------------------------------------------------------- */
+
+  .poster--colour {
+    background-color: var(--backing);
+    background-image:
+      linear-gradient(var(--backing-2) 0.3mm, transparent 0.3mm),
+      linear-gradient(90deg, var(--backing-2) 0.3mm, transparent 0.3mm);
+    background-size: calc(var(--u) * 1.6) calc(var(--u) * 1.6);
+    color: var(--char);
+  }
+  .poster--colour .p-logo--mono { display: none; }
+  .poster--colour .p-logo--colour { display: block; }
+
+  .poster--colour .p-free {
+    background: var(--yellow);
+    border: calc(var(--u) * 0.5) solid var(--white);
+    color: var(--char);
+  }
+  .poster--colour .row__lab {
+    background: var(--char);
+    color: var(--white);
+    border: calc(var(--u) * 0.4) solid var(--white);
+    transform: rotate(-0.8deg);
+  }
+  .poster--colour .row__box {
+    background: var(--white);
+    border: calc(var(--u) * 0.22) dashed var(--backing-3);
+  }
+  .poster--colour .card {
+    border: calc(var(--u) * 0.4) solid var(--white);
+    color: var(--white);
+  }
+  .poster--colour .card:nth-child(1) { background: var(--green); }
+  .poster--colour .card:nth-child(2) { background: var(--orange); }
+  .poster--colour .card:nth-child(3) { background: var(--yellow); color: var(--char); }
+  .poster--colour .card__tick { border-color: var(--char); }
+  .poster--colour .p-foot { border-top-color: var(--char); }
+
+  /* ---------------------------------------------------------------
+     Screen preview
+     --------------------------------------------------------------- */
+
+  .sheet > .grid + .grid { margin-top: 36px; }
+  .endbar { margin-top: 36px; }
+  .stage {
+    background: #9b968b;
+    padding: 26px;
+    border-radius: 18px;
+    overflow-x: auto;
+    margin: 36px 0;
+  }
+  .sheet1, .sheet2 {
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    width: max-content;
+  }
+  .sheet2 { display: flex; }
+  .sheet2 .poster + .poster { border-left: 1px dashed #999; }
+  .modes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .modes + .modes { margin-top: 10px; }
+  .modes__lab {
+    align-self: center;
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 4.6rem;
+  }
+
+  /* ---------------------------------------------------------------
+     Print
+     --------------------------------------------------------------- */
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .noprint, .rail, footer, .backbar, .skip-link { display: none !important; }
+    .sheet { max-width: none; margin: 0; }
+    .stage { background: none; padding: 0; border-radius: 0; overflow: visible; }
+    .sheet1, .sheet2 { box-shadow: none; margin: 0; }
+    .poster { break-inside: avoid; }
+    .sheet2 .poster + .poster { border-left: 0; }
+
+    /* Without this browsers drop the coloured panels to save ink, which
+       is the opposite of what somebody choosing colour has asked for. */
+    .poster--colour, .poster--colour * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+
+<div class="sheet">
+
+  <div class="backbar noprint">
+    <a class="btn btn--back" href="{{ site.organise.url }}">Back to the guide</a>
+  </div>
+
+  <div class="grid noprint">
+    <div class="st st--yellow st--peel a2 hero hero--compact col-12">
+      <div>
+        <span class="lab">Print and photocopy</span>
+        <h1>A poster you fill in yourself</h1>
+        <p>Print it, write your details in the boxes with a marker, then photocopy as many as you need. Nothing on it is tied to one event, so one printout makes a hundred posters.</p>
+      </div>
+      <div class="facts">
+        <span class="fact fact--solid">Press Ctrl and P</span>
+        <span class="fact">Tick what you are running</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid noprint">
+    <div class="st st--peel a4 col-12">
+      <span class="lab">Choose, then print</span>
+      <h2 style="font-family:Fredoka;font-weight:600;font-size:clamp(22px,2.8vw,28px);margin-bottom:16px">Size and style</h2>
+
+      <div class="modes">
+        <span class="modes__lab">Size</span>
+        <button class="btn btn--primary" type="button" data-size="a4">One A4</button>
+        <button class="btn btn--outline" type="button" data-size="a5">Two A5 on a sheet</button>
+      </div>
+      <div class="modes">
+        <span class="modes__lab">Style</span>
+        <button class="btn btn--primary" type="button" data-style="bw">Black and white</button>
+        <button class="btn btn--outline" type="button" data-style="colour">Colour</button>
+      </div>
+
+      <p class="st__body" style="max-width:64ch;margin-top:16px">Black and white is the one to photocopy, and it costs almost nothing per copy. Colour matches the website and still reads if it comes out of a mono printer. In the print dialog set margins to none, scale to 100 percent, and turn off headers and footers. For colour, turn on background graphics.</p>
+    </div>
+  </div>
+
+  {# ===================== THE POSTER ===================== #}
+  <div class="stage">
+    <div class="sheet1" data-sheet>
+      <article class="poster">
+        <div class="p-top">
+          <div>
+            <img class="p-logo p-logo--mono" src="/assets/images/sfd-logo-mono.png"
+                 alt="Software Freedom Day" width="519" height="134">
+            <img class="p-logo p-logo--colour" src="/assets/images/sfd-logo-trim.png"
+                 alt="Software Freedom Day" width="536" height="152">
+          </div>
+          <div class="p-free">
+            <b>Free</b>
+            <span>Everyone<br>welcome</span>
+          </div>
+        </div>
+
+        <div class="fill">
+          <div class="row">
+            <div class="row__lab">Date</div>
+            <div class="row__box"></div>
+          </div>
+          <div class="row">
+            <div class="row__lab">Time</div>
+            <div class="row__box"></div>
+          </div>
+          <div class="row">
+            <div class="row__lab">Where</div>
+            <div class="row__box row__box--tall"></div>
+          </div>
+        </div>
+
+        <div class="whats">
+          <span class="whats__lab">What's on</span>
+          <div class="cards">
+            {% for item in events[0].activities %}
+              <div class="card">
+                <div class="card__tick"></div>
+                <b>{{ item.title }}</b>
+                <p>{{ item.description | safe }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="p-foot">
+          <img class="p-qr" src="/assets/images/qr-sfd.png"
+               alt="QR code linking to sfd.org.au" width="792" height="792">
+          <div>
+            <div class="p-url">sfd.org.au</div>
+            <div class="p-tag">Find a location near you</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  {# ===================== MAKE IT YOURS ===================== #}
+  <div class="grid noprint">
+    <div class="st st--orange st--peel a1 col-12">
+      <span class="lab">Make it yours</span>
+      <h2>Change the wording, add your own QR code</h2>
+      <div class="prose">
+        <p style="opacity:.95">This poster is one file, <code>src/poster.njk</code>, and it holds its own styling. Fork the repository, edit that file, and print from your copy.</p>
+        <p style="opacity:.95">The three activity cards come from the first entry in <code>src/_data/events.json</code>, so they say the same thing as the home page. Swap them for your own if you are running something different.</p>
+        <p style="margin-bottom:0;opacity:.95">To point the QR code at your own listing, replace <code>src/assets/images/qr-sfd.png</code>. Keep it black on white and at least 25mm across, or phone cameras struggle after a photocopy.</p>
+      </div>
+      <div class="acts">
+        <a class="btn btn--primary btn--ext" href="{{ site.contact.github.url }}" target="_blank" rel="noopener noreferrer">
+          {{ site.contact.github.label }}
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 4h6v6"/><path d="M20 4 11 13"/>
+            <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="noprint endbar">
+    {% include "partials/back-home.njk" %}
+  </div>
+
+</div>
+
+<style id="pagesize">@page { size: A4 portrait; margin: 0; }</style>
+
+<script>
+  // Two independent choices, four combinations. Size decides how many
+  // posters are on the sheet and which way up the paper goes, style
+  // decides colour. @page cannot be written conditionally in CSS, so the
+  // rule is replaced outright.
+  (function () {
+    var stage = document.querySelector("[data-sheet]");
+    var pagesize = document.getElementById("pagesize");
+    if (!stage || !pagesize) return;
+
+    var one = stage.innerHTML;
+    var state = { size: "a4", style: "bw" };
+
+    function render() {
+      var two = state.size === "a5";
+      stage.className = two ? "sheet2" : "sheet1";
+      stage.innerHTML = two ? one + one : one;
+
+      if (state.style === "colour") {
+        stage.querySelectorAll(".poster").forEach(function (p) {
+          p.classList.add("poster--colour");
+        });
+      }
+
+      pagesize.textContent =
+        "@page { size: A4 " + (two ? "landscape" : "portrait") + "; margin: 0; }";
+
+      document.querySelectorAll("[data-size], [data-style]").forEach(function (b) {
+        var key = b.dataset.size ? "size" : "style";
+        var on = (b.dataset.size || b.dataset.style) === state[key];
+        b.className = "btn " + (on ? "btn--primary" : "btn--outline");
+        b.setAttribute("aria-pressed", String(on));
+      });
+    }
+
+    document.querySelectorAll("[data-size], [data-style]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (b.dataset.size) state.size = b.dataset.size;
+        else state.style = b.dataset.style;
+        render();
+      });
+    });
+
+    render();
+  })();
+</script>
