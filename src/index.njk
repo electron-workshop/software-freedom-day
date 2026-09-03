@@ -33,12 +33,18 @@ permalink: "/"
         <p>{{ site.intro }}</p>
       </div>
 
-      {# IMAGE SLOT #}
-      <div class="st st--photo a4">
-        <div class="ph ph--wide">
-          <span class="ph__icon">&#9635;</span>
-          <span class="ph__label">Photo slot</span>
-          <span class="ph__hint">A warm, welcoming shot of people at a past event</span>
+      {# IMAGE SLOTS #}
+      <div class="grid">
+        <div class="st st--photo a3 col-8">
+          <img src="/assets/images/photos/talk-2025.jpg"
+               alt="A room of people watching a talk at Software Freedom Day 2025. The slide behind the speaker reads Freedom Also Means Sharing."
+               width="1440" height="710" loading="lazy" decoding="async">
+        </div>
+
+        <div class="st st--photo a5 col-4">
+          <img src="/assets/images/photos/laptops-balloons.jpg"
+               alt="Four volunteers sitting together holding laptops, with Software Freedom Day balloons around them."
+               width="370" height="450" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -53,27 +59,6 @@ permalink: "/"
       <div class="st st--yellow st--circle a2">
         <div class="mega">{{ site.cost.value }}</div>
         <p class="st__body" style="margin-top:6px">{{ site.cost.body }}</p>
-      </div>
-    </div>
-  </div>
-
-  {# ===================== WHAT IT LOOKS LIKE ===================== #}
-  <div class="grid">
-    {# IMAGE SLOT #}
-    <div class="st st--photo a3 col-8">
-      <div class="ph ph--wide">
-        <span class="ph__icon">&#9635;</span>
-        <span class="ph__label">Photo slot</span>
-        <span class="ph__hint">The best wide shot you have of a past year, room full of people and laptops</span>
-      </div>
-    </div>
-
-    {# IMAGE SLOT #}
-    <div class="st st--photo a5 col-4">
-      <div class="ph ph--tall">
-        <span class="ph__icon">&#9635;</span>
-        <span class="ph__label">Photo slot</span>
-        <span class="ph__hint">Someone mid install, or a close up of the USB sticks</span>
       </div>
     </div>
   </div>

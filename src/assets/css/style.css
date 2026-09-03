@@ -204,6 +204,10 @@ img { max-width: 100%; height: auto; }
   place-content: center;
   text-align: center;
   padding: 26px;
+  /* Held in from the full column width so it reads as a badge dropped on the
+     sheet rather than another block in the stack. */
+  max-width: 250px;
+  justify-self: center;
 }
 
 /* Peel corner */
@@ -235,7 +239,13 @@ img { max-width: 100%; height: auto; }
    .ph placeholder in place until there is a real photo.
    ------------------------------------------------------------- */
 
-.st--photo { padding: 0; overflow: hidden; }
+/* Opts a sticker out of stretching to match a taller one beside it, for
+   when the row would otherwise leave a block of empty colour. */
+.st--start { align-self: start; }
+
+/* Photos keep their own shape rather than stretching to match whatever
+   sticker sits beside them, so nothing gets cropped by accident. */
+.st--photo { padding: 0; overflow: hidden; align-self: start; }
 
 .st--photo > img {
   display: block;
@@ -691,6 +701,8 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
     border-radius: var(--radius);
     text-align: left;
     place-content: start;
+    max-width: none;
+    justify-self: stretch;
   }
   .loc { padding: 32px 16px 22px; }
   .loc__head { grid-template-columns: 1fr; }
