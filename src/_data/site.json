@@ -43,8 +43,13 @@
   },
   "contact": {
     "email": "team@linuxvictoria.org",
+    "emailDisplay": "team[@]linuxvictoria.org",
     "codeOfConductUrl": "",
     "codeOfConductText": "Code of conduct",
-    "values": "Run by volunteers. Everyone welcome."
+    "values": "Run by volunteers. Everyone welcome.",
+    "github": {
+      "url": "https://github.com/electron-workshop/software-freedom-day",
+      "label": "Electron-Workshop/software-freedom-day"
+    }
   }
 }

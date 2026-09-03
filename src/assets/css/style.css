@@ -95,6 +95,7 @@ img { max-width: 100%; height: auto; }
   font-family: 'Nunito Sans', sans-serif;
   font-size: 15px;
   color: var(--muted);
+  align-items: flex-start;
 }
 
 .rail nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
@@ -102,6 +103,45 @@ img { max-width: 100%; height: auto; }
 .rail nav a { display: inline-flex; align-items: center; gap: 6px; }
 .rail a:hover { color: var(--char); text-decoration: underline; }
 .rail--bottom a { color: var(--char); }
+
+/* The footer is two columns: what this is on the left, how to reach us on
+   the right. Each stacks its own lines. */
+.foot-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.foot-col--contact { align-items: flex-start; }
+
+/* Sits on the right of the rail, so it reads to that edge. */
+.foot-col--values { align-items: flex-end; text-align: right; }
+
+.foot-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.3;
+}
+
+/* Icons inherit the text colour so the mail and GitHub marks sit at the
+   same weight as the words beside them. */
+.foot-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: currentColor;
+}
+
+.foot-line--link {
+  color: var(--char);
+  font-weight: 600;
+}
+.foot-line--link:hover { text-decoration: underline; }
+.foot-line--link:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 /* Brand: the logo on its own, linking home. The artwork already reads
    "Software Freedom Day", so no separate wording sits beside it. */
