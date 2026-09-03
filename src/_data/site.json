@@ -1,12 +1,18 @@
 {
+  "url": "https://sfd.org.au",
   "name": "Software Freedom Day",
   "year": 2026,
-  "url": "https://sfd.org.au",
   "date": "Saturday 19 September 2026",
   "dateShort": "Sat 19 Sep",
   "meta": {
     "title": "Software Freedom Day 2026",
     "description": "A worldwide celebration of free and open source software, on Saturday 19 September 2026. Free to attend, no experience needed. Find a location near you or host your own."
+  },
+  "previewImage": {
+    "path": "/assets/images/sfd-2026-preview.png",
+    "width": 1200,
+    "height": 630,
+    "alt": "Software Freedom Day, Saturday 19 September 2026. Everyone welcome, free to attend."
   },
   "intro": "A worldwide celebration of free and open source software. One day a year, in cities all over the world, people get together to show anyone who's curious what free software can do at home, at work, at school and in government.",
   "beginners": {

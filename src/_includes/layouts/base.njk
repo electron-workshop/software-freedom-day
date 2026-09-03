@@ -3,7 +3,12 @@
 <head>
   {% set pageTitle = title or site.meta.title %}
   {% set pageDesc = description or site.meta.description %}
+  {# Canonical always points at the live site, so previews never compete with
+     it. Share links point at whichever build is being viewed, so the card
+     works when you send a preview link around. #}
   {% set pageUrl = site.url + (page.url or "/") %}
+  {% set pageShareUrl = global.shareUrl + (page.url or "/") %}
+  {% set pageImage = preview_image or (global.shareUrl + site.previewImage.path) %}
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +20,19 @@
 
   <meta property="og:title" content="{{ pageTitle }}">
   <meta property="og:description" content="{{ pageDesc }}">
-  <meta property="og:url" content="{{ pageUrl }}">
+  <meta property="og:url" content="{{ pageShareUrl }}">
   <meta property="og:type" content="website">
-  {% if preview_image %}<meta property="og:image" content="{{ preview_image }}">{% endif %}
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:image" content="{{ pageImage }}">
+  <meta property="og:image:width" content="{{ site.previewImage.width }}">
+  <meta property="og:image:height" content="{{ site.previewImage.height }}">
+  <meta property="og:image:alt" content="{{ site.previewImage.alt }}">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ pageTitle }}">
   <meta name="twitter:description" content="{{ pageDesc }}">
-  {% if preview_image %}<meta name="twitter:image" content="{{ preview_image }}">{% endif %}
+  <meta name="twitter:image" content="{{ pageImage }}">
+  <meta name="twitter:image:alt" content="{{ site.previewImage.alt }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
