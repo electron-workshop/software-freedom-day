@@ -16,6 +16,9 @@
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDesc }}">
   <link rel="canonical" href="{{ pageUrl }}">
+  {# Pages that only make sense as the end of a journey, so they should not
+     turn up in search results on their own. #}
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
   <meta property="og:title" content="{{ pageTitle }}">
@@ -67,6 +70,11 @@
 
         <nav class="menu__panel" id="site-nav" aria-label="Site">
           <a href="/">Events &amp; Locations</a>
+          {# Only worth offering while at least one location actually wants
+             volunteers, otherwise the page has nothing to choose from. #}
+          {% set wantsHelp = false %}
+          {% for event in events %}{% if event.volunteer and event.volunteer.open %}{% set wantsHelp = true %}{% endif %}{% endfor %}
+          {% if wantsHelp %}<a href="/volunteer/">Volunteer</a>{% endif %}
           <a href="{{ site.organise.url }}">Host your own</a>
           <a href="{{ site.archive.url }}" target="_blank" rel="noopener noreferrer">
             {{ site.archive.linkText }}

@@ -106,9 +106,97 @@ img { max-width: 100%; height: auto; }
    and force the panel open, so it behaves as a plain row of links.
    ------------------------------------------------------------- */
 
-/* Hidden everywhere by default. Only the small screen rules below reveal
-   it, and only once the script has marked the menu ready. */
+/* Hidden until the script marks the menu ready, so with no JavaScript
+   the links stay visible as an ordinary list. */
 .menu__btn { display: none; }
+
+/* -------------------------------------------------------------
+   Hamburger
+   Collapsed at every width, not only on small screens, so the
+   masthead reads the same everywhere.
+   ------------------------------------------------------------- */
+
+.menu { position: relative; }
+
+/* Collapsed only when the script is running. Without it the panel keeps
+   the ordinary layout and every link stays reachable. */
+.menu.is-ready > .menu__panel { display: none; }
+
+.menu.is-ready .menu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px 12px 13px;
+  min-height: 48px;
+  background: var(--white);
+  border: 3px solid var(--char);
+  border-radius: 999px;
+  color: var(--char);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  list-style: none;
+}
+/* The default disclosure triangle, removed in both dialects. */
+.menu__btn::-webkit-details-marker { display: none; }
+.menu__btn::marker { content: ""; }
+.menu__btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
+
+/* Three bars drawn with a border and two shadows, so there is no extra
+   markup and no icon font to load. */
+.menu__bars {
+  width: 20px;
+  height: 2px;
+  background: var(--char);
+  box-shadow: 0 -6px 0 var(--char), 0 6px 0 var(--char);
+}
+.menu[data-open] .menu__bars {
+  box-shadow: none;
+  transform: rotate(45deg);
+  position: relative;
+}
+.menu[data-open] .menu__bars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--char);
+  transform: rotate(90deg);
+}
+
+/* The panel sits over the page rather than pushing it down, so opening
+   the menu does not shove the hero out of view. */
+.menu[data-open] > .menu__panel {
+  display: flex;
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 232px;
+  flex-direction: column;
+  /* The row layout centres its items, which in a column means each link
+     shrinks to its own text width. Stretch makes them full width rows. */
+  align-items: stretch;
+  gap: 0;
+  padding: 8px;
+  background: var(--white);
+  border: 3px solid var(--char);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+.menu[data-open] > .menu__panel a {
+  display: flex;
+  align-items: center;
+  padding: 15px 16px;
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--char);
+}
+.menu[data-open] > .menu__panel a + a { border-top: 2px solid var(--backing-2); }
+.menu[data-open] > .menu__panel a:hover { background: var(--backing); text-decoration: none; }
+
 .rail a { text-decoration: none; }
 .rail nav a { display: inline-flex; align-items: center; gap: 6px; }
 .rail a:hover { color: var(--char); text-decoration: underline; }
@@ -811,6 +899,133 @@ pre {
 pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
 
 /* =============================================================
+   Form
+   Built for someone filling it in on a phone with one thumb, so the
+   choices are whole tappable rows rather than small round targets.
+   ============================================================= */
+
+.frm { display: grid; gap: 26px; }
+
+/* The bot decoy. Kept out of the layout and out of the tab order without
+   display:none, which some bots check for. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.frm__set { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.frm__legend {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 23px);
+  letter-spacing: -0.01em;
+  padding: 0;
+  margin-bottom: 2px;
+}
+.frm__hint {
+  font-size: 15.5px;
+  color: var(--muted-2);
+  margin-top: -6px;
+  margin-bottom: 4px;
+}
+
+/* Choice rows */
+.picks--inline { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.pick {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  min-height: 56px;
+  border: 3px solid var(--backing-2);
+  border-radius: 16px;
+  background: var(--white);
+  cursor: pointer;
+}
+.pick:hover { border-color: var(--backing-3); }
+.pick--sm { min-height: 52px; padding: 13px 18px; align-items: center; flex: 0 0 auto; }
+
+/* The real control stays in the tab order and drives the visible box. */
+.pick input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.pick__box {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  border: 3px solid var(--char);
+  border-radius: 8px;
+  background: var(--white);
+  position: relative;
+}
+.pick--sm .pick__box { margin-top: 0; }
+
+.pick input:checked + .pick__box { background: var(--green); border-color: var(--green); }
+.pick input:checked + .pick__box::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid var(--white);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.pick:has(input:checked) { border-color: var(--green); }
+.pick:has(input:focus-visible) { outline: 3px solid var(--char); outline-offset: 3px; }
+
+.pick__text { display: grid; gap: 3px; line-height: 1.35; }
+.pick__text strong { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 17px; }
+.pick__sub { font-size: 15px; color: var(--muted-2); }
+
+/* Text inputs */
+.frm__row { display: grid; gap: 8px; }
+.frm__label {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 23px);
+  letter-spacing: -0.01em;
+}
+.frm__opt {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.frm__input {
+  font: inherit;
+  color: var(--char);
+  background: var(--white);
+  border: 3px solid var(--backing-2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  min-height: 56px;
+  width: 100%;
+  max-width: 34rem;
+}
+textarea.frm__input { max-width: 44rem; resize: vertical; }
+.frm__input:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 2px;
+  border-color: var(--char);
+}
+
+.frm__end { display: grid; gap: 14px; justify-items: start; }
+.btn--big { font-size: 18px; padding: 16px 30px; min-height: 56px; }
+.frm__note { font-size: 15.5px; color: var(--muted-2); max-width: 52ch; }
+
+/* =============================================================
    Responsive
    ============================================================= */
 
@@ -842,90 +1057,6 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
   .rail--bottom a { padding: 8px 0; }
   .loc__address { padding: 6px 0; }
 
-  /* -----------------------------------------------------------
-     Hamburger
-     ----------------------------------------------------------- */
-
-  .menu { position: relative; }
-
-  /* Collapsed only when the script is running. Without it the panel keeps
-     the ordinary layout and every link stays reachable. */
-  .menu.is-ready > .menu__panel { display: none; }
-
-  .menu.is-ready .menu__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 12px 15px 12px 13px;
-    min-height: 48px;
-    background: var(--white);
-    border: 3px solid var(--char);
-    border-radius: 999px;
-    color: var(--char);
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    list-style: none;
-  }
-  /* The default disclosure triangle, removed in both dialects. */
-  .menu__btn::-webkit-details-marker { display: none; }
-  .menu__btn::marker { content: ""; }
-  .menu__btn:focus-visible { outline: 3px solid var(--char); outline-offset: 3px; }
-
-  /* Three bars drawn with a border and two shadows, so there is no extra
-     markup and no icon font to load. */
-  .menu__bars {
-    width: 20px;
-    height: 2px;
-    background: var(--char);
-    box-shadow: 0 -6px 0 var(--char), 0 6px 0 var(--char);
-  }
-  .menu[data-open] .menu__bars {
-    box-shadow: none;
-    transform: rotate(45deg);
-    position: relative;
-  }
-  .menu[data-open] .menu__bars::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--char);
-    transform: rotate(90deg);
-  }
-
-  /* The panel sits over the page rather than pushing it down, so opening
-     the menu does not shove the hero out of view. */
-  .menu[data-open] > .menu__panel {
-    display: flex;
-    position: absolute;
-    z-index: 20;
-    top: calc(100% + 10px);
-    right: 0;
-    min-width: 232px;
-    flex-direction: column;
-    /* The row layout centres its items, which in a column means each link
-       shrinks to its own text width. Stretch makes them full width rows. */
-    align-items: stretch;
-    gap: 0;
-    padding: 8px;
-    background: var(--white);
-    border: 3px solid var(--char);
-    border-radius: 18px;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
-  }
-  .menu[data-open] > .menu__panel a {
-    display: flex;
-    align-items: center;
-    padding: 15px 16px;
-    min-height: 52px;
-    border-radius: 12px;
-    font-size: 16px;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    color: var(--char);
-  }
-  .menu[data-open] > .menu__panel a + a { border-top: 2px solid var(--backing-2); }
-  .menu[data-open] > .menu__panel a:hover { background: var(--backing); text-decoration: none; }
 }
 
 @media (max-width: 520px) {

@@ -160,6 +160,14 @@ permalink: "/"
                   </span>
                 {% endif %}
               {% endfor %}
+
+              {# Generated from the volunteer flag rather than listed in
+                 actions, so a host opts in with one line and the link is
+                 always right. Sits after the listed actions so registering
+                 stays the first thing offered. #}
+              {% if event.volunteer and event.volunteer.open %}
+                <a class="btn btn--green" href="/volunteer/?location={{ event.id }}">Volunteer on the day</a>
+              {% endif %}
             </div>
           </div>
         </div>
