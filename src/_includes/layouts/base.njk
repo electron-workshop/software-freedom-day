@@ -77,6 +77,28 @@
   </main>
 
   <footer class="sheet">
+    {% if site.organisers and site.organisers.items | length %}
+      <div class="orgs">
+        <span class="orgs__lab">{{ site.organisers.label }}</span>
+        <ul class="orgs__list">
+          {% for org in site.organisers.items %}
+            <li>
+              {% if org.url %}
+                <a class="orgs__item" href="{{ org.url }}" target="_blank" rel="noopener noreferrer">
+                  <img src="{{ org.src }}" alt="{{ org.alt }}" loading="lazy" decoding="async">
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              {% else %}
+                <span class="orgs__item">
+                  <img src="{{ org.src }}" alt="{{ org.alt }}" loading="lazy" decoding="async">
+                </span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
     <div class="rail rail--bottom">
       {# The address is written out rather than linked, so the page does not hand
          a plain mailto to every scraper. The "email us" buttons on the pages

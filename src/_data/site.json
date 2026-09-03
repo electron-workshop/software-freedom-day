@@ -47,6 +47,31 @@
     "url": "https://past.sfd.org.au",
     "linkText": "Past events"
   },
+  "organisers": {
+    "label": "Organised by",
+    "items": [
+      {
+        "src": "/assets/images/logos/organisers/ElectronWorkshopLogo.png",
+        "alt": "Electron Workshop",
+        "url": "https://electronworkshop.org"
+      },
+      {
+        "src": "/assets/images/logos/organisers/osia-logo.png",
+        "alt": "Open Source Industry Australia",
+        "url": "https://osia.com.au/"
+      },
+      {
+        "src": "/assets/images/logos/organisers/luv-lv-logo.png",
+        "alt": "Linux Victoria",
+        "url": "https://linuxvictoria.org"
+      },
+      {
+        "src": "/assets/images/logos/organisers/fsm-logo.png",
+        "alt": "Free Software Melbourne",
+        "url": "https://freesoftware.au/"
+      }
+    ]
+  },
   "contact": {
     "email": "team@linuxvictoria.org",
     "emailDisplay": "team[@]linuxvictoria.org",

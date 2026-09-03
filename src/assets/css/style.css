@@ -104,6 +104,51 @@ img { max-width: 100%; height: auto; }
 .rail a:hover { color: var(--char); text-decoration: underline; }
 .rail--bottom a { color: var(--char); }
 
+/* Organiser logos. They sit straight on the backing paper rather than in
+   white boxes, because every one of them is dark on transparent. */
+.orgs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 34px 4px 4px;
+  border-top: 2px dashed var(--backing-3);
+  margin-top: 30px;
+}
+.orgs__lab {
+  font-family: Fredoka, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.orgs__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 38px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.orgs__item { display: inline-flex; align-items: center; }
+.orgs__item img {
+  display: block;
+  height: 44px;
+  width: auto;
+  /* Enough room for a wide lockup without letting it dwarf the others. */
+  max-width: 190px;
+  object-fit: contain;
+}
+a.orgs__item:hover img { opacity: 0.75; }
+a.orgs__item:focus-visible {
+  outline: 3px solid var(--char);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
 /* The footer is two columns: what this is on the left, how to reach us on
    the right. Each stacks its own lines. */
 .foot-col {
@@ -476,6 +521,32 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
   border-color: rgba(0, 0, 0, 0.12);
 }
 .btn--outline:hover { border-color: currentColor; }
+
+/* A button whose link is not ready yet. Rendered as a span, so there is
+   nothing to click and nothing to tab to. Says why rather than just
+   looking broken. */
+.btn--off {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  background: transparent;
+  color: var(--muted-2);
+  border-color: var(--backing-3);
+  border-style: dashed;
+  cursor: default;
+}
+.btn__soon {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+/* On the yellow action bar the paper grey would disappear, so darken it. */
+.st--yellow .btn--off {
+  color: rgba(42, 44, 46, 0.62);
+  border-color: rgba(42, 44, 46, 0.28);
+}
 
 /* -------------------------------------------------------------
    Back to home

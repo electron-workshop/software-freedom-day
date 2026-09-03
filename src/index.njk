@@ -148,7 +148,17 @@ permalink: "/"
             <span class="lab">Take part at {{ event.venue }}</span>
             <div class="acts" style="margin-top:4px">
               {% for action in event.actions %}
-                <a class="btn btn--{{ action.style or 'outline' }}" href="{{ action.url }}">{{ action.label }}</a>
+                {# A link that is not ready yet renders as an inert span rather
+                   than an anchor to "#", so it cannot be clicked or focused and
+                   plainly reads as not available. #}
+                {% if action.url and action.url != "#" %}
+                  <a class="btn btn--{{ action.style or 'outline' }}" href="{{ action.url }}">{{ action.label }}</a>
+                {% else %}
+                  <span class="btn btn--off" aria-disabled="true">
+                    {{ action.label }}
+                    <span class="btn__soon">Coming soon</span>
+                  </span>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
