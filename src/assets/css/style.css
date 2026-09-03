@@ -821,12 +821,42 @@ pre code { background: none; padding: 0; color: inherit; font-size: 14.5px; }
   .loc__when { text-align: left; }
   .locs-hd { margin-top: 40px; }
   .locs-hd h2 { font-size: 25px; white-space: normal; }
+
+  /* Touch targets. These links are small uppercase text about 16px tall,
+     which is a hard thing to hit with a thumb, so they get padding to
+     reach a comfortable size. Row gap goes to zero because the padding
+     is now doing that job. */
+  .rail--top nav { gap: 0 16px; }
+  .rail--top nav a { padding: 14px 2px; }
+  .rail--bottom a { padding: 8px 0; }
+  .loc__address { padding: 6px 0; }
 }
 
 @media (max-width: 520px) {
   body { font-size: 16px; }
   .st { padding: 24px 22px; }
   .rail--top { letter-spacing: 0.12em; }
+
+  /* The wordmark is two lines by design. Below this width the 40px floor
+     pushed "Day" onto a third line on its own, so the size tracks the
+     viewport instead of stopping. */
+  .hero h1 { font-size: clamp(30px, 10vw, 44px); }
+
+  /* The date is repeated as the first line of the hero directly below, so
+     in the masthead it is duplication costing a whole row. */
+  .rail--top .rail__date { display: none; }
+
+  /* Tighter tracking so the three links sit together instead of one
+     breaking off on its own line. */
+  .rail--top nav {
+    gap: 0 14px;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+
+  /* The footer columns are stacked by now, so the second one is no longer
+     on the right and should not still be aligned to it. */
+  .foot-col--values { align-items: flex-start; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
