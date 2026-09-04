@@ -7,12 +7,12 @@
     "venue": "Inspire9",
     "time": "10am to 6pm",
     "summary": "Drop in whenever suits and stay as long as you like.",
-    "address": "Inspire9, Melbourne",
-    "map": "",
+    "address": "Level 1/41-43 Stewart St, Richmond VIC 3121",
+    "map": "https://maps.app.goo.gl/TVnAcDcX5E8f1oKS9",
     "logo": {
-      "src": "",
-      "alt": "",
-      "url": ""
+      "src": "/assets/images/logos/hosts/inspire9-logo.png",
+      "alt": "Inspire9 logo",
+      "url": "inspire9.com"
     },
     "volunteer": {
       "open": true
@@ -37,7 +37,7 @@
     "actions": [
       {
         "label": "Register",
-        "url": "#",
+        "url": "https://luma.com/fyak8ny1?utm_soure=sfd-org",
         "style": "primary"
       }
     ]
