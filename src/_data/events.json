@@ -1,14 +1,50 @@
 [
   {
+    "id": "melbourne-melbpc",
+    "status": "confirmed",
+    "city": "Melbourne",
+    "region": "Moorabbin, Melbourne",
+    "venue": "Melbourne PC User Group",
+    "time": "10am to 12pm",
+    "summary": "The morning session. Doors at 10, install fest straight away.",
+    "address": "Level 1, Suite 26, 479 Warrigal Road, Moorabbin VIC 3189",
+    "map": "https://www.google.com/maps/search/?api=1&query=Ste+26%2F479+Warrigal+Rd%2C+Moorabbin+VIC+3189",
+    "logo": {
+      "src": "/assets/images/logos/hosts/melbpc-logo.png",
+      "alt": "Melbourne PC User Group logo",
+      "url": "https://www.melbpc.org.au/"
+    },
+    "volunteer": {
+      "open": true
+    },
+    "activities": [
+      {
+        "title": "Install fest",
+        "description": "Got a laptop that <strong>can't run Windows 11</strong>? It isn't rubbish, and you don't have to replace it. Bring it along, we'll put Linux on it, and it'll be <strong>faster than it was</strong>. <strong>Older Macs too</strong>, the ones Apple has stopped updating. USB sticks provided."
+      },
+      {
+        "title": "Bring a question",
+        "description": "<strong>Beginner questions are the whole point!</strong> Members have been doing this for decades and nobody will assume you know anything. Ask about the software that annoys you, or the subscription that keeps creeping up."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Register",
+        "url": "https://luma.com/ddu1xicy?utm_source=sfd-org",
+        "style": "primary"
+      }
+    ]
+  },
+  {
     "id": "melbourne-inspire9",
     "status": "confirmed",
     "city": "Melbourne",
     "region": "Richmond, Melbourne",
     "venue": "Inspire9",
-    "time": "10am to 6pm",
-    "summary": "Drop in whenever suits and stay as long as you like.",
+    "time": "2pm to 4pm",
+    "summary": "The afternoon session. Drop in whenever suits and stay as long as you like.",
     "address": "Level 1/41-43 Stewart St, Richmond VIC 3121",
-    "map": "https://maps.app.goo.gl/TVnAcDcX5E8f1oKS9",
+    "map": "https://maps.app.goo.gl/GeEh8h5pkH9Z7XgJ7",
     "logo": {
       "src": "/assets/images/logos/hosts/inspire9-logo.png",
       "alt": "Inspire9 logo",
@@ -19,25 +55,22 @@
     },
     "activities": [
       {
-        "when": "All day",
         "title": "Install fest",
         "description": "Got a laptop that <strong>can't run Windows 11</strong>? It isn't rubbish, and you don't have to replace it. Bring it along, we'll put Linux on it, and it'll be <strong>faster than it was</strong>. <strong>Older Macs too</strong>, the ones Apple has stopped updating. USB sticks provided."
       },
       {
-        "when": "Midday",
         "title": "Open exchange",
         "description": "<strong>Beginner questions are the whole point!</strong> Bring the software that annoys you, or the subscription that keeps creeping up, and we'll talk about what else is out there. The alternatives are usually free, and <strong>they aren't mining your files to train an AI</strong>."
       },
       {
-        "when": "To close",
         "title": "Lightning talks",
-        "description": "Five minutes each, no slides required. <strong>Show us an open source app you love</strong>, something you fixed, or something you're still figuring out. <strong>It doesn't have to be technical.</strong> Put your name down on the day."
+        "description": "Five minutes each, <strong>no slides required</strong> but welcomed. Show us an open source app you love, something you fixed, or something you're still figuring out. <strong>It doesn't have to be technical.</strong> Put your name down on the day."
       }
     ],
     "actions": [
       {
         "label": "Register",
-        "url": "https://luma.com/fyak8ny1?utm_soure=sfd-org",
+        "url": "https://luma.com/fyak8ny1?utm_source=sfd-org",
         "style": "primary"
       }
     ]

@@ -30,6 +30,13 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+/* In-page jumps glide rather than snap. scroll-padding keeps the target
+   clear of the cue sitting at the bottom of the viewport. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 90px;
+}
+
 body,
 h1, h2, h3, h4, p, ul, ol, li, figure, blockquote { margin: 0; padding: 0; }
 
@@ -465,6 +472,13 @@ a.orgs__item:focus-visible {
 }
 .grid + .grid { margin-top: 20px; }
 
+/* What's on at a location. Hosts list two, three or more activities, so the
+   row divides itself evenly instead of leaving a gap where a fourth card
+   would have gone. Cards wrap to their own line once they get too narrow. */
+.grid--acts {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
 .col-3  { grid-column: span 3; }
 .col-4  { grid-column: span 4; }
 .col-5  { grid-column: span 5; }
@@ -501,6 +515,76 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
 }
 
 .hero p { font-size: 19.5px; max-width: 42ch; opacity: 0.94; }
+
+/* Scroll cue. Floats over the page instead of sitting in the layout, so it
+   stays in view while the sheet scrolls under it. Centred with auto margins
+   rather than a translate, because the fade-in animates transform and the
+   two would fight over the same property. The two-second hold is an
+   animation delay rather than a timer in script, so it behaves the same
+   with JavaScript off; fill-mode "both" keeps it invisible until its turn. */
+.cue {
+  position: fixed;
+  z-index: 60;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin-inline: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--char);
+  color: var(--white);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  text-decoration: none;
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: cue-in 0.5s ease 2s both;
+}
+.cue:hover { background: var(--green); }
+.cue:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+.cue__arrow {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: cue-bounce 1.7s ease-in-out 2.5s infinite;
+}
+
+@keyframes cue-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes cue-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* Once you have started scrolling the cue has done its job. Swapped for an
+   outgoing animation rather than a transition, because the reveal above is
+   an animation with fill-mode "both" and a plain opacity declaration would
+   lose to it. Comes back if you return to the top. */
+.cue--gone {
+  animation: cue-out 0.32s ease both;
+  pointer-events: none;
+}
+.cue--gone .cue__arrow { animation: none; }
+
+@keyframes cue-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(16px); }
+}
+}
 
 /* Compact hero: a short wide band rather than a tall block, so the
    guide page does not open the same way the home page does. */
@@ -771,24 +855,58 @@ h1, h2, h3, h4, .punch, .mega, .btn, .lab {
   gap: 26px;
   align-items: center;
 }
-.loc__when { text-align: right; }
+/* When it's on. Date and time are each labelled, because "Sat 19 Sep" over
+   "2pm to 4pm" reads as one run-on line otherwise, and the time is the part
+   people come back to check. The time sits in a chip so it carries the most
+   weight in the block. */
+.loc__when {
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+  text-align: right;
+}
+.loc__when-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 9px;
+}
+.loc__when-lab {
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
 .loc__when .d {
   font-family: Fredoka, sans-serif;
   font-weight: 700;
-  font-size: clamp(22px, 2.6vw, 28px);
+  font-size: clamp(20px, 2.3vw, 25px);
   line-height: 1.1;
   letter-spacing: -0.015em;
   font-variant-numeric: tabular-nums;
 }
 .loc__when .t {
   font-family: Fredoka, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  opacity: 0.85;
-  margin-top: 3px;
+  font-weight: 700;
+  font-size: clamp(18px, 2.1vw, 23px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  background: var(--white);
+  color: var(--char);
+  border-radius: 999px;
+  padding: 7px 15px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
 }
+/* No coloured sticker behind it here, so the chip needs an edge of its own. */
 .st--blank .loc__when .d { color: var(--muted-2); }
-.st--blank .loc__when .t { color: var(--muted); }
+.st--blank .loc__when .t {
+  color: var(--muted);
+  box-shadow: none;
+  border: 2px solid var(--backing-3);
+}
 
 .loc__address {
   display: inline-block;
@@ -1097,6 +1215,15 @@ textarea.frm__input { max-width: 44rem; resize: vertical; }
 
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
+  /* Still delayed, still appears, but it fades in place and holds still. */
+  html { scroll-behavior: auto; }
+  .cue { animation: cue-fade 0.5s ease 2s both; }
+  .cue--gone { animation: none; opacity: 0; }
+  .cue__arrow { animation: none; }
+  @keyframes cue-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 }
 
 @media print {
