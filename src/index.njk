@@ -64,7 +64,7 @@ permalink: "/"
   </div>
 
   {# ===================== LOCATIONS ===================== #}
-  <div class="locs-hd">
+  <div class="locs-hd" id="events">
     <h2>Where it's on</h2>
     <span class="rule"></span>
     <span class="count">
@@ -123,18 +123,25 @@ permalink: "/"
             {% endif %}
           </div>
           <div class="loc__when">
-            <div class="d">{{ site.dateShort }}</div>
-            {% if event.time %}<div class="t">{{ event.time }}</div>{% endif %}
+            <div class="loc__when-row">
+              <span class="loc__when-lab">Date:</span>
+              <span class="d">{{ site.dateShort }}</span>
+            </div>
+            {% if event.time %}
+              <div class="loc__when-row">
+                <span class="loc__when-lab">Time:</span>
+                <span class="t">{{ event.time }}</span>
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>
 
       {% if event.activities and event.activities | length %}
         <span class="loc__note">What's on at this one</span>
-        <div class="grid">
+        <div class="grid grid--acts">
           {% for item in event.activities %}
-            <div class="st st--peel {{ angles[loop.index0 % 5] }} col-4">
-              {% if item.when %}<span class="lab">{{ item.when }}</span>{% endif %}
+            <div class="st st--peel {{ angles[loop.index0 % 5] }}">
               <h3>{{ item.title }}</h3>
               {# Descriptions may carry light formatting such as <strong>, so
                  they are not escaped. Entries arrive by reviewed pull request. #}
@@ -191,8 +198,14 @@ permalink: "/"
           <p class="st__body">Every sticker on this sheet started as somebody offering to run one.</p>
         </div>
         <div class="loc__when">
-          <div class="d">{{ site.dateShort }}</div>
-          <div class="t">Time set by host</div>
+          <div class="loc__when-row">
+            <span class="loc__when-lab">Date:</span>
+            <span class="d">{{ site.dateShort }}</span>
+          </div>
+          <div class="loc__when-row">
+            <span class="loc__when-lab">Time:</span>
+            <span class="t">Set by host</span>
+          </div>
         </div>
       </div>
     </div>
@@ -242,3 +255,42 @@ permalink: "/"
   </div>
 
 </div>
+
+{# Floats over the page rather than sitting in the layout, so it stays put
+   while everything scrolls under it. Held back a couple of seconds by an
+   animation delay rather than a script, so it behaves the same with
+   JavaScript switched off, and it is a real link as well as a hint. #}
+<a class="cue" href="#events">
+  <span>Scroll to see events</span>
+  <svg class="cue__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M12 5v14"/>
+    <path d="m5 12 7 7 7-7"/>
+  </svg>
+</a>
+
+<script>
+  // Progressive enhancement, like the menu in the layout: with no JavaScript
+  // the cue simply stays, which is the behaviour it had before this ran.
+  (function () {
+    var cue = document.querySelector(".cue");
+    if (!cue) return;
+
+    var gone = null;
+
+    function update() {
+      // Anything past a nudge counts as having started scrolling.
+      var past = window.scrollY > 60;
+      if (past === gone) return;
+      gone = past;
+      cue.classList.toggle("cue--gone", past);
+      // Keep it out of the tab order and off screen readers while hidden,
+      // so it is gone in the same way for everybody.
+      cue.setAttribute("aria-hidden", String(past));
+      cue.setAttribute("tabindex", past ? "-1" : "0");
+    }
+
+    addEventListener("scroll", update, { passive: true });
+    // A reload can restore a scroll position part way down the page.
+    update();
+  })();
+</script>
