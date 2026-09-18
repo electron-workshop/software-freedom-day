@@ -69,7 +69,10 @@
         </button>
 
         <nav class="menu__panel" id="site-nav" aria-label="Site">
-          <a href="/">Events &amp; Locations</a>
+          {# Lands on the locations list rather than the top of the page, so
+             the link goes where its name says. Same anchor the scroll cue
+             uses, and the smooth scrolling is inherited from html. #}
+          <a href="/#events">Events &amp; Locations</a>
           {# Only worth offering while at least one location actually wants
              volunteers, otherwise the page has nothing to choose from. #}
           {% set wantsHelp = false %}
