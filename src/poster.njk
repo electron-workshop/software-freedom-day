@@ -120,10 +120,14 @@ description: "A blank Software Freedom Day poster to print, fill in by hand and 
     display: block;
     margin-bottom: calc(var(--u) * 0.9);
   }
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--u) * 1); }
-  .card:nth-child(1) { transform: rotate(-0.9deg); }
-  .card:nth-child(2) { transform: rotate(0.7deg); }
-  .card:nth-child(3) { transform: rotate(-0.6deg); }
+  /* Divides by however many cards there are, so a host running two things
+     or four gets a full row rather than a gap where a third card would be. */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: calc(var(--u) * 1); }
+  .card:nth-child(5n + 1) { transform: rotate(-0.9deg); }
+  .card:nth-child(5n + 2) { transform: rotate(0.7deg); }
+  .card:nth-child(5n + 3) { transform: rotate(-0.6deg); }
+  .card:nth-child(5n + 4) { transform: rotate(0.8deg); }
+  .card:nth-child(5n + 5) { transform: rotate(-0.5deg); }
 
   .card {
     position: relative;
@@ -263,7 +267,10 @@ description: "A blank Software Freedom Day poster to print, fill in by hand and 
     body { background: #fff; padding: 0; }
     .noprint, .rail, footer, .backbar, .skip-link { display: none !important; }
     .sheet { max-width: none; margin: 0; }
-    .stage { background: none; padding: 0; border-radius: 0; overflow: visible; }
+    /* The screen margin has to go as well as the padding. The poster is
+       exactly one page tall and @page has no margin, so even 36px above it
+       overflows page one and pushes the whole poster onto page two. */
+    .stage { background: none; padding: 0; border-radius: 0; overflow: visible; margin: 0; }
     .sheet1, .sheet2 { box-shadow: none; margin: 0; }
     .poster { break-inside: avoid; }
     .sheet2 .poster + .poster { border-left: 0; }
@@ -351,8 +358,20 @@ description: "A blank Software Freedom Day poster to print, fill in by hand and 
 
         <div class="whats">
           <span class="whats__lab">What's on</span>
+          {# The fullest programme on the sheet, rather than whichever location
+             happens to sit first in the data. Taking events[0] meant adding a
+             location could quietly drop a card off the printed poster. Built
+             by pushing into a list because a plain set inside a for loop does
+             not survive the loop in Nunjucks. #}
+          {% set best = [events[0]] %}
+          {% for event in events %}
+            {% if (event.activities | length) > (best[0].activities | length) %}
+              {% set _ = best.pop() %}{% set _ = best.push(event) %}
+            {% endif %}
+          {% endfor %}
+
           <div class="cards">
-            {% for item in events[0].activities %}
+            {% for item in best[0].activities %}
               <div class="card">
                 <div class="card__tick"></div>
                 <b>{{ item.title }}</b>
@@ -381,7 +400,7 @@ description: "A blank Software Freedom Day poster to print, fill in by hand and 
       <h2>Change the wording, add your own QR code</h2>
       <div class="prose">
         <p style="opacity:.95">This poster is one file, <code>src/poster.njk</code>, and it holds its own styling. Fork the repository, edit that file, and print from your copy.</p>
-        <p style="opacity:.95">The three activity cards come from the first entry in <code>src/_data/events.json</code>, so they say the same thing as the home page. Swap them for your own if you are running something different.</p>
+        <p style="opacity:.95">The activity cards come from whichever location in <code>src/_data/events.json</code> lists the most, so they say the same thing as the home page. Swap them for your own if you are running something different.</p>
         <p style="margin-bottom:0;opacity:.95">To point the QR code at your own listing, replace <code>src/assets/images/qr-sfd.png</code>. Keep it black on white and at least 25mm across, or phone cameras struggle after a photocopy.</p>
       </div>
       <div class="acts">
